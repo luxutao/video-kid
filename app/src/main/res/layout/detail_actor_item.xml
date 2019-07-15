@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_margin="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <cn.animekid.videokid.utils.PrettyImageView
+            android:id="@+id/actor_avatar"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerCrop"
+            app:border_color="#ff9900"
+            app:border_width="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:left_bottom_radiusX="40dp"
+            app:left_bottom_radiusY="40dp"
+            app:left_top_radiusX="40dp"
+            app:left_top_radiusY="40dp"
+            app:right_bottom_radiusX="40dp"
+            app:right_bottom_radiusY="40dp"
+            app:right_top_radiusX="40dp"
+            app:right_top_radiusY="40dp"
+            app:shape_type="SHAPE_ROUND"
+            app:show_border="false"/>
+
+        <cn.animekid.videokid.utils.MarqueeText
+            android:id="@+id/actor_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="13sp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="杨紫"
+            android:scrollHorizontally="true"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

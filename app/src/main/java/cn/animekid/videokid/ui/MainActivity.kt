@@ -1,26 +1,52 @@
-package cn.animekid.video_kid
+package cn.animekid.videokid.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import cn.animekid.videokid.R
+import cn.animekid.videokid.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+
+    private var currentFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        // 打开默认页
+        openFragment(FragmentHome.newInstance(), "home")
+        val nav = findViewById<BottomNavigationView>(R.id.bv)
+        nav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.itemHome -> {
+                    openFragment(FragmentHome.newInstance(), "home")
+                }
+                R.id.itemMovie -> {
+                    openFragment(FragmentMovie.newInstance(), "movie")
+                }
+                R.id.itemTv -> {
+                    openFragment(FragmentTv.newInstance(), "tv")
+                }
+                R.id.itemAnime -> {
+                    openFragment(FragmentAnime.newInstance(), "anime")
+                }
+                R.id.itemShows -> {
+                    openFragment(FragmentShows.newInstance(), "shows")
+                }
+            }
+            true
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -80,5 +106,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    // 切换fragment保存状态
+    private fun openFragment(fragment: Fragment, tag: String) {
+        // 如果当前的frag存在就隐藏
+        if (currentFragment != null) {
+            supportFragmentManager.beginTransaction().hide(currentFragment!!).commit()
+        }
+        // 如果搜索到了要打开的frag则显示，否则则创建
+        currentFragment = supportFragmentManager.findFragmentByTag(tag)
+        if (currentFragment == null) {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.container, fragment, tag)
+            transaction.commit()
+            currentFragment = fragment
+        } else {
+            supportFragmentManager.beginTransaction().show(currentFragment!!).commit()
+        }
+
     }
 }

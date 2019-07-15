@@ -1,4 +1,4 @@
-package cn.animekid.video_kid
+package cn.animekid.videokid
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

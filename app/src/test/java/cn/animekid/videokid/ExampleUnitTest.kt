@@ -1,4 +1,4 @@
-package cn.animekid.video_kid
+package cn.animekid.videokid
 
 import org.junit.Test
 

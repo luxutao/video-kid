@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperereshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="1dp"
+                        android:scaleType="fitXY"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_launcher_sound"
+                        android:src="@drawable/ic_sound"
+                        android:layout_marginStart="1dp" />
+
+                    <cn.animekid.videokid.utils.MarqueeText
+                        android:text="@string/warning"
+                        android:layout_width="400dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="15dp"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:scrollHorizontally="true"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+                    <com.app.abby.xbanner.XBanner
+                        android:id="@+id/xbanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:text="@string/home_movie"
+                        android:paddingLeft="10dp"
+                        android:textSize="16sp"/>
+
+                    <cn.animekid.videokid.utils.AutoHeightGridView
+                        android:id="@+id/newMovieList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:numColumns="3"
+                        android:stretchMode="columnWidth" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLucency"
+                    android:layout_margin="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:text="@string/home_tv"
+                        android:paddingLeft="10dp"
+                        android:textSize="16sp"/>
+
+                    <cn.animekid.videokid.utils.AutoHeightGridView
+                        android:id="@+id/newTvList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:numColumns="3"
+                        android:stretchMode="columnWidth" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLucency"
+                    android:layout_margin="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:text="@string/home_anime"
+                        android:paddingLeft="10dp"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+
+                    <cn.animekid.videokid.utils.AutoHeightGridView
+                        android:id="@+id/newAnimeList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:numColumns="3"
+                        android:stretchMode="columnWidth" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLucency"
+                    android:layout_margin="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:text="@string/home_shows"
+                        android:paddingLeft="10dp"
+                        android:textSize="16sp"/>
+
+                    <cn.animekid.videokid.utils.AutoHeightGridView
+                        android:id="@+id/newShowsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:numColumns="3"
+                        android:stretchMode="columnWidth" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLucency"
+                    android:layout_margin="10dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_ref"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/noInternet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_error"/>
+
+        <Button
+            android:id="@+id/reloadImageList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重新加载"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
