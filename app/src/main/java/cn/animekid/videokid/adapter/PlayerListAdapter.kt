@@ -2,13 +2,13 @@ package cn.animekid.videokid.adapter
 
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.Button
 import cn.animekid.videokid.R
-import java.util.*
-import android.widget.*
 import cn.animekid.videokid.data.Playdata
+import java.util.*
 
 
 class PlayerListAdapter(private val _context: Context, private val _list: ArrayList<Playdata>) : BaseAdapter() {

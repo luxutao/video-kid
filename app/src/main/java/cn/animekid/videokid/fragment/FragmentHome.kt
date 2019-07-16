@@ -5,13 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
 import cn.animekid.videokid.R
 import cn.animekid.videokid.adapter.ImageAdapter
 import cn.animekid.videokid.api.Requester
@@ -22,9 +24,9 @@ import cn.animekid.videokid.ui.PlayerActivity
 import cn.animekid.videokid.utils.AutoHeightGridView
 import com.app.abby.xbanner.AbstractUrlLoader
 import com.app.abby.xbanner.XBanner
-import pl.droidsonroids.gif.GifImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import pl.droidsonroids.gif.GifImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,12 +61,7 @@ class FragmentHome: Fragment() {
                 this.tvList.clear()
                 this.animeList.clear()
                 this.showsList.clear()
-                this.initXBanner(view)
                 this.getnewData(view)
-                this.movieAdapter.notifyDataSetChanged()
-                this.tvAdapter.notifyDataSetChanged()
-                this.animeAdapter.notifyDataSetChanged()
-                this.showsAdapter.notifyDataSetChanged()
                 this.swipeLayout.isRefreshing = false
             }, 2000)
         }

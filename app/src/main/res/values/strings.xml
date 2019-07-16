@@ -2,8 +2,8 @@
     <string name="app_name">AK视频</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">未登录</string>
+    <string name="nav_header_subtitle">ak.video@animekid.cn</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     
@@ -23,6 +23,8 @@
     <string name="player_list">播放列表</string>
     <string name="player_desc">简介</string>
     <string name="player_hit">%1$d次播放</string>
+    <string name="actors">主演：%1$s</string>
+    <string name="directors">导演：%1$s</string>
 
     <string name="warning">
         本APP所有资源均收集于网络,如果侵犯了您的权益,请联系站长 Email:912530326@qq.com。

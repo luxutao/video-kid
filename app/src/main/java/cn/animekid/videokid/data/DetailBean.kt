@@ -6,6 +6,12 @@ data class DetailBean(
     val msg: String
 )
 
+data class DetailsBean(
+    val `data`: List<Data>,
+    val code: Int,
+    val msg: String
+)
+
 data class Data(
     val tid: Tid,
     val v_actor: List<Actor>,
@@ -27,7 +33,8 @@ data class Data(
     val v_spic: String,
     val v_tread: Int,
     val score: String,
-    val v_hit: Int
+    val v_hit: Int,
+    val v_actors: String
 )
 
 data class Actor(

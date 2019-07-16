@@ -4,7 +4,9 @@ package cn.animekid.videokid.utils
 import android.content.Context
 import android.util.Base64
 import cn.animekid.videokid.data.UserInfoBean
-import org.jetbrains.anko.db.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.parseSingle
+import org.jetbrains.anko.db.select
 import java.util.regex.Pattern
 
 object ToolsHelper {

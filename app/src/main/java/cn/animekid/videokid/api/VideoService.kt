@@ -2,21 +2,17 @@ package cn.animekid.videokid.api
 
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.util.Log
-import cn.animekid.videokid.data.DetailBean
-import cn.animekid.videokid.data.HomeNewsDataBean
-import cn.animekid.videokid.data.ListDataBean
-import cn.animekid.videokid.data.ListSpicBean
-import retrofit2.Call
+import cn.animekid.videokid.data.*
 import cn.animekid.videokid.utils.ToolsHelper
 import okhttp3.Interceptor
-import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Query
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,61 +43,16 @@ class Requester {
             return getService(ImageService.baseUrl, ImageService::class.java)
         }
 
-        //可用于多种不同种类的请求
-//        fun AuthService(): AuthService {
-//            return getService(AuthService.baseUrl, AuthService::class.java)
-//        }
-
     }
 
 }
-
-//interface AuthService {
-//
-//    companion object {
-//        val baseUrl = "https://api.animekid.cn/api/auth/"
-//    }
-//
-//    @FormUrlEncoded
-//    @POST("login")
-//    fun authLogin(@Query("ticket") ticket: String = ToolsHelper.getTicket("login"), @Field("email") email: String, @Field("password") password: String): Call<ResponseDataBean>
-//
-//    @FormUrlEncoded
-//    @POST("register")
-//    fun authRegister(@Query("ticket") ticket: String = ToolsHelper.getTicket("register"), @Field("email") email: String, @Field("password") password: String): Call<ResponseDataBean>
-//
-//    @FormUrlEncoded
-//    @POST("sendCaptcha")
-//    fun sendCaptcha(@Query("ticket") ticket: String = ToolsHelper.getTicket("sendCaptcha"), @Field("email") email: String): Call<ResponseDataBean>
-//
-//    @FormUrlEncoded
-//    @POST("logout")
-//    fun authLogout(@Query("token") token: String, @Field("authtoken") authtoken: String): Call<ResponseDataBean>
-//
-//    @FormUrlEncoded
-//    @POST("forgetpassword")
-//    fun forgetPassword(@Query("ticket") ticket: String = ToolsHelper.getTicket("forgetpassword"), @Field("email") email: String): Call<ResponseDataBean>
-//
-//    @FormUrlEncoded
-//    @POST("deluser")
-//    fun delUser(@Query("token") token: String, @Field("authid") authid: Int): Call<ResponseDataBean>
-//
-//    @FormUrlEncoded
-//    @POST("changeuser")
-//    fun changeProfile(@Query("token") token: String, @Field("email") email: String, @Field("name") name: String,@Field("sex") sex: String): Call<ResponseDataBean>
-//
-//    @GET("getUserinfo")
-//    fun getUserinfo(@Query("token") token: String): Call<UserInfoBean>
-//
-//}
-
 
 interface ImageService {
 
     companion object {
         //此类接口的基地址
-//        val baseUrl = "http://192.168.10.100:8432/api/video/"
-        val baseUrl = "http://10.0.2.2:8432/api/video/"
+        val baseUrl = "https://api.animekid.cn/api/video/"
+//        val baseUrl = "http://10.0.2.2:8432/api/video/"
     }
 
     @GET("getNew")
@@ -112,6 +63,10 @@ interface ImageService {
 
     @GET("getDetail")
     fun getDetail(@Query("ticket") ticket: String = ToolsHelper.getTicket("getDetail"), @Query("vid") vid: Int): Call<DetailBean>
+
+    @GET("search")
+    fun search(@Query("ticket") ticket: String = ToolsHelper.getTicket("getDetail"),
+               @Query("s") s: String, @Query("page") page: Int): Call<DetailsBean>
 
     @GET("getVideo")
     fun getVideo(

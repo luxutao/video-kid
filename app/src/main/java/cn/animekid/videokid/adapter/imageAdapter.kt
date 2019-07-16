@@ -9,17 +9,11 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import cn.animekid.videokid.R
+import cn.animekid.videokid.data.ImageData
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestOptions
 import java.util.*
-import android.R.attr.level
-import android.app.Activity
-import android.opengl.ETC1.getHeight
-import android.util.DisplayMetrics
-import android.view.LayoutInflater
-import android.widget.GridView
-import cn.animekid.videokid.data.ImageData
 
 
 class ImageAdapter(private val _context: Context, private val _list: ArrayList<ImageData>) : BaseAdapter() {
