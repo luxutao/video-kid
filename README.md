@@ -9,3 +9,5 @@
 ![scrrenshot](screenshot/2019-07-16.15-37-58屏幕截图.png)  
 ![scrrenshot](screenshot/2019-07-16.15-38-29屏幕截图.png)  
 ![scrrenshot](screenshot/2019-07-16.15-39-01屏幕截图.png)  
+
+#### PS：好多功能还没写完，现在只是可以看可以搜索，最近不太想写了。2019.7.16
