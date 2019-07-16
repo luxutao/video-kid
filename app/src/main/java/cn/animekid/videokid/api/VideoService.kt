@@ -65,7 +65,7 @@ interface ImageService {
     fun getDetail(@Query("ticket") ticket: String = ToolsHelper.getTicket("getDetail"), @Query("vid") vid: Int): Call<DetailBean>
 
     @GET("search")
-    fun search(@Query("ticket") ticket: String = ToolsHelper.getTicket("getDetail"),
+    fun search(@Query("ticket") ticket: String = ToolsHelper.getTicket("search"),
                @Query("s") s: String, @Query("page") page: Int): Call<DetailsBean>
 
     @GET("getVideo")
