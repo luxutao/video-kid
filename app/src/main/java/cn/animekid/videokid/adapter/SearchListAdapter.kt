@@ -11,6 +11,7 @@ import android.widget.TextView
 import cn.animekid.videokid.R
 import cn.animekid.videokid.data.Data
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestOptions
 
@@ -34,7 +35,7 @@ class SearchListAdapter(private val _context: Context, private val _list: ArrayL
         val v: View
         if (convertView == null) {
 
-            v = View.inflate(_context, R.layout.search_item, null)
+            v = View.inflate(_context, R.layout.activity_search_result_item, null)
             holder = ImageViewHolder(v)
             v.tag = holder
         } else {
@@ -42,9 +43,9 @@ class SearchListAdapter(private val _context: Context, private val _list: ArrayL
             holder = v.tag as ImageViewHolder
         }
 
-        Log.e("tag",_list[position].v_pic)
         Glide.with(v)
                 .load(_list[position].v_pic)
+                .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_image_loading))
                 .apply(RequestOptions.errorOf(R.drawable.ic_image_loading_error))
                 .transition(withCrossFade())

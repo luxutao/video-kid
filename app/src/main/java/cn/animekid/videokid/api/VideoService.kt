@@ -11,8 +11,7 @@ import okhttp3.Response
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,6 +40,10 @@ class Requester {
         //可用于多种不同种类的请求
         fun ImageService(): ImageService {
             return getService(ImageService.baseUrl, ImageService::class.java)
+        }
+
+        fun PublicService(): PublicService {
+            return getService(PublicService.baseUrl, PublicService::class.java)
         }
 
     }
@@ -72,9 +75,24 @@ interface ImageService {
     fun getVideo(
             @Query("ticket") ticket: String = ToolsHelper.getTicket("getVideo"), @Query("page") page: Int,
             @Query("type") type: String, @Query("area") area: String, @Query("lang") lang: String,
-            @Query("year") year: String, @Query("vtp") vtp: String
+            @Query("year") year: String, @Query("vtp") vtp: String, @Query("size") size: Int = 10
     ): Call<ListDataBean>
 
+}
+
+
+interface PublicService {
+
+    companion object {
+        val baseUrl = "https://api.animekid.cn/api/public/"
+    }
+
+    @GET("checkUpdate")
+    fun checkUpdate(@Query("ticket") ticket: String = ToolsHelper.getTicket("checkUpdate"), @Query("app_name") app_name: String = "AKVIDEO", @Query("app_version") app_version: String): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("feedback")
+    fun feedback(@Query("ticket") ticket: String = ToolsHelper.getTicket("feedback"), @Field("app_name") app_name: String = "AKVIDEO", @Field("email") email: String, @Field("content") content: String): Call<BasicResponse>
 }
 
 

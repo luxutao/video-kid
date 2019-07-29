@@ -5,8 +5,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorGray">#b9b8b8</color>
+    <color name="colorLine">#e1e0e0</color>
     <color name="colorLucency">#3bdfdcdc</color>
+    <color name="colorBar">#f51ca9fa</color>
+    <color name="colorBlack">#000000</color>
     <color name="gray_text">#5b5b5b</color>
     <color name="gray_text_dark">#292929</color>
     <color name="gray_text_light">#979797</color>
+    <color name="colorBlackT">#41000000</color>
 </resources>

@@ -30,7 +30,7 @@ class PlayerListAdapter(private val _context: Context, private val _list: ArrayL
         val v: View
         if (convertView == null) {
 
-            v = View.inflate(_context, R.layout.player_item, null)
+            v = View.inflate(_context, R.layout.activity_player_gather_item, null)
             holder = PlayerListHolder(v)
             v.tag = holder
         } else {

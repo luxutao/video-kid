@@ -25,7 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PlayerActivity : AppCompatActivity() {
+class PlayerActivity : BaseAAppCompatActivity() {
 
     private lateinit var videoView: JzvdStd
     private lateinit var v_name: TextView
@@ -57,15 +57,17 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.player)
         val v_id = intent.extras.getInt("v_id")
         loading = LoadingDialog(this).showLoading()
-        this.init()
+        this.initUI()
         this.getDetail(v_id)
     }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_player
+    }
     
-    fun init() {
-        setSupportActionBar(this.findViewById(R.id.toolbar))
+    fun initUI() {
         videoView = findViewById(R.id.video_view)
         v_name = this.findViewById(R.id.v_name)
         v_score_star = this.findViewById(R.id.v_score_star)
@@ -83,8 +85,6 @@ class PlayerActivity : AppCompatActivity() {
         player2_image_button = this.findViewById(R.id.player2_image_button)
         player3_player_layout = this.findViewById(R.id.player3_player_layout)
         player3_image_button = this.findViewById(R.id.player3_image_button)
-        supportActionBar!!.setHomeButtonEnabled(true)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
     }
 
@@ -196,17 +196,6 @@ class PlayerActivity : AppCompatActivity() {
             videoView.startVideo()
         }
         return onItem
-    }
-
-    // 监听导航栏按钮
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        super.onOptionsItemSelected(item)
-        when (item.itemId) {
-            android.R.id.home -> {
-                this.finish()
-            }
-        }
-        return true
     }
 
     override fun onBackPressed() {

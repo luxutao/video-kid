@@ -7,31 +7,35 @@
         android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
-        android:icon="@drawable/applogo"
+        android:icon="@mipmap/ic_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/applogo"
+        android:roundIcon="@mipmap/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MainActivity"
-            android:label="@string/app_name"
+            android:name=".ui.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/nav_name_home"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchActivity"/>
         </activity>
         <activity
             android:name=".ui.PlayerActivity"
-            android:label="播放页面"
+            android:label="@string/nav_name_player"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".ui.SearchActivity"
-            android:label="查询结果"
+            android:label="@string/nav_name_search_result"
             android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -42,6 +46,18 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.LicenseActivity"
+            android:label="@string/nav_name_license"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.AboutActivity"
+            android:label="@string/nav_name_about"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.FeedbackActivity"
+            android:label="@string/feedback_content_label"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.SettingsActivity"
+            android:label="@string/nav_name_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

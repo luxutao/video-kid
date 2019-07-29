@@ -10,10 +10,10 @@ class FragmentMovie: BaseFFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_movie, container, false)
+        val view = inflater.inflate(R.layout.fragment_video_list, container, false)
         this.vtp = "movie"
         this.initUI(view)
-        this.loadingMore(1)
+        this.loadingMore(1, size = 20)
         return view
     }
 

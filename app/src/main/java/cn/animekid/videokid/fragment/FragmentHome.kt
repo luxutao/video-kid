@@ -87,6 +87,7 @@ class FragmentHome: Fragment() {
                     .setDelay(5000)
                     .setImageUrls(imageList)
                     .setTitles(titleList)
+                    .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
                     .setBannerPageListener(object: XBanner.BannerPageListener {
                         override fun onBannerClick(item: Int) {
                             val detaildata = data.get(item)
@@ -105,8 +106,8 @@ class FragmentHome: Fragment() {
                         override fun loadImages(context: Context?, url: String?, image: ImageView?) {
                             Glide.with(context!!)
                                 .load(url)
-                                .apply(RequestOptions.placeholderOf(R.drawable.ic_image_loading))
-                                .apply(RequestOptions.errorOf(R.drawable.ic_image_loading_error))
+                                .apply(RequestOptions.placeholderOf(R.color.colorBlackT))
+                                .apply(RequestOptions.errorOf(R.color.colorBlackT))
                                 .into(image!!)
                         }
 

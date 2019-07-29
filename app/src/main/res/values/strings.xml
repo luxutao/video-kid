@@ -31,4 +31,19 @@
         All resources on this website are collected on the Internet. If infringe your rights, please contact the webmaster. Email:912530326@qq.com。
     </string>
     <string name="score">%1$s</string>
+    <string name="nav_name_license">LICENSE</string>
+    <string name="nav_name_search_result">查询结果</string>
+    <string name="nav_name_player">视频详情</string>
+    <string name="nav_name_home">首页</string>
+    <string name="nav_name_about">关于我们</string>
+    <string name="nav_name_settings">设置</string>
+    <string name="about_help">帮助中心&#038;问题反馈</string>
+    <string name="about_check_update">检查更新</string>
+    <string name="about_version">当前版本</string>
+    <string name="about_license">《 Apache License 》</string>
+    <string name="feedback_content_label">问题反馈</string>
+    <string name="feedback_content">可以在此或访问https://github.com/luxutao/animes-wallpaper提交issue</string>
+    <string name="feedback_email">Email</string>
+    <string name="feedback_email_label">邮箱</string>
+    <string name="feedback_submit">一键反馈</string>
 </resources>

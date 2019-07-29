@@ -3,7 +3,7 @@ package cn.animekid.videokid.utils
 
 import android.content.Context
 import android.util.Base64
-import cn.animekid.videokid.data.UserInfoBean
+import cn.animekid.videokid.data.UserInfoData
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.parseSingle
 import org.jetbrains.anko.db.select
@@ -41,7 +41,7 @@ object ToolsHelper {
     fun getToken(ctx: Context): String {
         val userinfo = ctx.database.use {
             select("anime_users","userid","token","name","create_time","email","sex","avatar").exec {
-                val userinfo: UserInfoBean.Data = parseSingle(classParser<UserInfoBean.Data>())
+                val userinfo: UserInfoData = parseSingle(classParser())
                 return@exec userinfo
             }
         }

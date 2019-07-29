@@ -11,7 +11,7 @@ import android.widget.TextView
 import cn.animekid.videokid.R
 import cn.animekid.videokid.data.ImageData
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import java.util.*
 
@@ -43,13 +43,15 @@ class ImageAdapter(private val _context: Context, private val _list: ArrayList<I
             holder = v.tag as ImageViewHolder
         }
 
-        Log.e("tag",_list[position].v_pic)
         Glide.with(v)
-            .load(_list[position].v_pic)
-            .apply(RequestOptions.placeholderOf(R.drawable.ic_image_loading))
-            .apply(RequestOptions.errorOf(R.drawable.ic_image_loading_error))
-            .transition(withCrossFade())
-            .into(holder.image)
+                .load(_list[position].v_pic)
+                .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+                .apply(RequestOptions().placeholder(R.drawable.video_item_loading_placeholder))
+                .apply(RequestOptions().error(R.drawable.video_item_loading_error))
+                .apply(RequestOptions().centerCrop())
+                .apply(RequestOptions().dontAnimate())
+                .into(holder.image)
+        Log.e("tag",_list[position].v_pic)
         holder.score.setText(String.format(_context.getString(R.string.score),  _list[position].v_score))
         holder.name.setText(String.format(_context.getString(R.string.score),  _list[position].v_name))
         holder.note.setText(String.format(_context.getString(R.string.score),  _list[position].v_note))

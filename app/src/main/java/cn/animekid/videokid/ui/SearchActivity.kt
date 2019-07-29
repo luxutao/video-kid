@@ -27,7 +27,7 @@ class SearchActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.search_result)
+        setContentView(R.layout.activity_search_result)
         s = intent.extras.get(SearchManager.QUERY).toString()
         Log.e("search", s)
         this.initUI()

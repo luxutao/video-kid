@@ -40,22 +40,6 @@ data class ListSpicBean(
     )
 }
 
-data class UserInfoBean(
-    var code: Int,
-    var msg: String,
-    var data: Data
-) {
-    data class Data(
-        var userid: Int,
-        var token: String,
-        var name: String,
-        var create_time: String,
-        var email: String,
-        var sex: String,
-        var avatar: String
-    )
-}
-
 data class SearchTypeBean(
     var id: Int,
     var name: String
