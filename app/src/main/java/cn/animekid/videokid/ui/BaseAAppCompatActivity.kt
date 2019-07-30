@@ -24,7 +24,7 @@ abstract class BaseAAppCompatActivity: AppCompatActivity() {
 
     fun getData(){
         val itemdata = this.database.use {
-            select("anime_users","userid","token","name","create_time","email","sex","avatar").exec {
+            select("users","userid","token","name","create_time","email","sex","avatar").exec {
                 val itemlist: List<UserInfoData> = parseList(classParser())
                 return@exec itemlist
             }
@@ -36,7 +36,7 @@ abstract class BaseAAppCompatActivity: AppCompatActivity() {
 
     fun updateData(column: String, value: Any, userid: Int) {
         this.database.use {
-            update("anime_users",column to value).whereArgs("userid=" + userid).exec()
+            update("users",column to value).whereArgs("userid=" + userid).exec()
         }
     }
 

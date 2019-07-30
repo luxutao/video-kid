@@ -106,7 +106,7 @@ open class BaseFFragment : Fragment() {
     }
 
     fun loadingMore(page: Int, reload: Boolean = false, size: Int = 10) {
-        Requester.ImageService().getVideo(area = this.params["area"].toString(), type = this.params["type"].toString(),
+        Requester.VideoService().getVideo(area = this.params["area"].toString(), type = this.params["type"].toString(),
                 lang = this.params["lang"].toString(), year = this.params["year"].toString(),vtp = this.vtp, page = page, size = size).enqueue(object: Callback<ListDataBean> {
             override fun onResponse(call: Call<ListDataBean>?, response: Response<ListDataBean>?) {
                 this@BaseFFragment.videoList.visibility = View.VISIBLE

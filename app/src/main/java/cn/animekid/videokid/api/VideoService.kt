@@ -38,8 +38,12 @@ class Requester {
         }
 
         //可用于多种不同种类的请求
-        fun ImageService(): ImageService {
-            return getService(ImageService.baseUrl, ImageService::class.java)
+        fun VideoService(): VideoService {
+            return getService(VideoService.baseUrl, VideoService::class.java)
+        }
+
+        fun AuthService(): AuthService {
+            return getService(AuthService.baseUrl, AuthService::class.java)
         }
 
         fun PublicService(): PublicService {
@@ -50,7 +54,47 @@ class Requester {
 
 }
 
-interface ImageService {
+
+interface AuthService {
+
+    companion object {
+        val baseUrl = "https://api.animekid.cn/api/auth/"
+    }
+
+    @FormUrlEncoded
+    @POST("login")
+    fun authLogin(@Query("ticket") ticket: String = ToolsHelper.getTicket("login"), @Field("email") email: String, @Field("password") password: String): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("register")
+    fun authRegister(@Query("ticket") ticket: String = ToolsHelper.getTicket("register"), @Field("email") email: String, @Field("password") password: String): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("sendCaptcha")
+    fun sendCaptcha(@Query("ticket") ticket: String = ToolsHelper.getTicket("sendCaptcha"), @Field("email") email: String): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("logout")
+    fun authLogout(@Query("token") token: String, @Field("authtoken") authtoken: String): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("forgetpassword")
+    fun forgetPassword(@Query("ticket") ticket: String = ToolsHelper.getTicket("forgetpassword"), @Field("email") email: String): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("deluser")
+    fun delUser(@Query("token") token: String, @Field("authid") authid: Int): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("changeuser")
+    fun changeProfile(@Query("token") token: String, @Field("email") email: String, @Field("name") name: String,@Field("sex") sex: String): Call<BasicResponse>
+
+    @GET("getUserinfo")
+    fun getUserinfo(@Query("token") token: String): Call<UserInfo>
+
+}
+
+interface VideoService {
 
     companion object {
         //此类接口的基地址
@@ -82,6 +126,14 @@ interface ImageService {
     fun getRandomVideo(
             @Query("ticket") ticket: String = ToolsHelper.getTicket("getRandomVideo")
     ): Call<DetailsBean>
+
+    @FormUrlEncoded
+    @POST("diggTread")
+    fun diggTread(@Query("token") token: String, @Field("v_id") v_id: Int, @Field("v_type") v_type: String): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("feedbackNotPlay")
+    fun feedbackNotPlay(@Query("token") token: String, @Field("v_id") v_id: Int, @Field("v_name") v_name: String): Call<BasicResponse>
 
 }
 

@@ -20,7 +20,7 @@ class DBOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "anime", null, 1
 
     override fun onCreate(db: SQLiteDatabase) {
         // Here you create tables
-        db.createTable("anime_users", true,
+        db.createTable("users", true,
                 "id" to INTEGER + PRIMARY_KEY  + AUTOINCREMENT,
                 "userid" to INTEGER,
                 "name" to TEXT,
@@ -33,7 +33,7 @@ class DBOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "anime", null, 1
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Here you can upgrade tables, as usual
-        db.dropTable("anime_users", true)
+        db.dropTable("users", true)
     }
 }
 

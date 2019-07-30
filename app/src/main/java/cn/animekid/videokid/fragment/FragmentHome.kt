@@ -75,7 +75,7 @@ class FragmentHome: Fragment() {
         this.xbanner = v.findViewById(R.id.xbanner)
         val imageList: ArrayList<String> = arrayListOf()
         val titleList: ArrayList<String> = arrayListOf()
-        Requester.ImageService().getSpic().enqueue(object: Callback<ListSpicBean> {
+        Requester.VideoService().getSpic().enqueue(object: Callback<ListSpicBean> {
             override fun onResponse(call: Call<ListSpicBean>, response: Response<ListSpicBean>) {
                 val data = response.body()!!.data
                 for (i in data) {
@@ -141,7 +141,7 @@ class FragmentHome: Fragment() {
         tvList.onItemClickListener = this.onItem(this.tvList)
         animeList.onItemClickListener = this.onItem(this.animeList)
         showsList.onItemClickListener = this.onItem(this.showsList)
-        Requester.ImageService().getNew().enqueue(object: Callback<HomeNewsDataBean> {
+        Requester.VideoService().getNew().enqueue(object: Callback<HomeNewsDataBean> {
             override fun onResponse(call: Call<HomeNewsDataBean>, response: Response<HomeNewsDataBean>) {
                 this@FragmentHome.swipeLayout.visibility = View.VISIBLE
                 this@FragmentHome.errorview.visibility = View.GONE

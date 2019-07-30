@@ -12,22 +12,51 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import cn.animekid.videokid.R
+import cn.animekid.videokid.api.Requester
+import cn.animekid.videokid.data.BasicResponse
 import cn.animekid.videokid.fragment.*
+import cn.animekid.videokid.utils.ToolsHelper
+import cn.animekid.videokid.utils.database
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import org.jetbrains.anko.db.delete
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.nio.file.Files.delete
 
 class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     private var currentFragment: Fragment? = null
+    private var islogin: Boolean = false
+    private lateinit var navView: NavigationView
+    private lateinit var navheaderView: View
+    private lateinit var UserAvatar: ImageView
+    private lateinit var UserName: TextView
+    private lateinit var UserEmail: TextView
+    private lateinit var UserProfile: MenuItem
+    private lateinit var UserLogout: MenuItem
     private lateinit var BottomMenu: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.initUI()
+
+        this.UserAvatar.setOnClickListener {
+            if (!this.islogin) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
         this.BottomMenu.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -59,9 +88,50 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     fun initUI() {
+        this.navView = this.findViewById(R.id.nav_view)
+//        this.navheaderView = this.navView.inflateHeaderView(R.layout.nav_header_main)
+        this.navheaderView = this.navView.getHeaderView(0)
+        this.UserAvatar = this.navheaderView.findViewById(R.id.user_avatar)
+        this.UserName = this.navheaderView.findViewById(R.id.user_name)
+        this.UserEmail = this.navheaderView.findViewById(R.id.user_email)
+        this.UserProfile = this.navView.menu.findItem(R.id.nav_profile)
+        this.UserLogout = this.navView.menu.findItem(R.id.nav_logout)
         this.BottomMenu = this.findViewById(R.id.bottom_menu)
         this.openFragment(FragmentHome.newInstance(), "home")
     }
+
+    fun defaultData(default: Boolean) {
+        if (default) {
+            // 注销账号后将动态数据还原
+            this.UserAvatar.setImageResource(R.drawable.default_avatar)
+            this.UserEmail.text = getString(R.string.nav_header_subtitle)
+            this.UserName.text = getString(R.string.nav_header_title)
+            // 获取侧边栏下面的按钮,设置隐藏属性
+            this.UserLogout.isVisible = false
+            this.UserProfile.isVisible = false
+            this.islogin = false
+        } else {
+            if (this.UserInfo.avatar != "F") {
+                Glide.with(this).load(this.UserInfo.avatar).into(this.UserAvatar)
+            }
+            this.UserEmail.text = this.UserInfo.email
+            this.UserName.text = this.UserInfo.name
+            this.UserLogout.isVisible = true
+            this.UserProfile.isVisible = true
+            this.islogin = true
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        this.getData()
+        if (this.UserInfo.userid != 0) {
+            this.defaultData(false)
+        } else {
+            this.defaultData(true)
+        }
+    }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -103,7 +173,8 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
                 startActivity(intent)
             }
             R.id.nav_profile -> {
-
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_setting -> {
                 val intent = Intent(this, SettingsActivity::class.java)
@@ -121,7 +192,24 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
                 startActivity(intent)
             }
             R.id.nav_logout -> {
+                AlertDialog.Builder(this).setTitle("提示").setMessage("确认注销当前账号吗？")
+                        .setPositiveButton("确认") { t_dialog, which ->
+                            Requester.AuthService().authLogout(token = ToolsHelper.getToken(this@MainActivity), authtoken = this.UserInfo.token).enqueue(object: Callback<BasicResponse> {
+                                override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                                    this@MainActivity.database.use { delete("users") }
+                                    Log.d("logoutSuccess","success")
+                                    this@MainActivity.defaultData(true)
+                                    Toast.makeText(this@MainActivity, "注销账号成功", Toast.LENGTH_SHORT).show()
+                                }
 
+                                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                                    Log.d("logoutError",t.message)
+                                }
+                            })
+
+                        }
+                        .setNegativeButton("取消", null)
+                        .create().show()
             }
         }
 

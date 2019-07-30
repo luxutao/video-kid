@@ -61,7 +61,7 @@ class SearchActivity: AppCompatActivity() {
     }
 
     fun getSearchResult(page: Int) {
-        Requester.ImageService().search(page = page, s = this.s).enqueue(object : Callback<DetailsBean> {
+        Requester.VideoService().search(page = page, s = this.s).enqueue(object : Callback<DetailsBean> {
             override fun onResponse(call: Call<DetailsBean>, response: Response<DetailsBean>) {
                 val res = response.body()!!.data
                 this@SearchActivity.searchDataList.addAll(res)

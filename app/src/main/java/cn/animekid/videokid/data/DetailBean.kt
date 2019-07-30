@@ -34,6 +34,7 @@ data class Data(
     val v_tread: Int,
     val score: String,
     val v_hit: Int,
+    val v_collect: Int,
     val v_actors: String
 )
 

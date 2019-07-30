@@ -21,7 +21,6 @@
 
     </LinearLayout>
 
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_menu"
         android:layout_width="0dp"

@@ -38,7 +38,7 @@ class PlayerListAdapter(private val _context: Context, private val _list: ArrayL
             holder = v.tag as PlayerListHolder
         }
 
-        holder.palyerlist.text = String.format(_context.getString(R.string.score),  _list[position].gather)
+        holder.palyerlist.text = String.format(_context.getString(R.string.format_string),  _list[position].gather)
         return v
     }
 

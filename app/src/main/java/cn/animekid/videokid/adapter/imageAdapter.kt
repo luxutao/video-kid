@@ -52,9 +52,9 @@ class ImageAdapter(private val _context: Context, private val _list: ArrayList<I
                 .apply(RequestOptions().dontAnimate())
                 .into(holder.image)
         Log.e("tag",_list[position].v_pic)
-        holder.score.setText(String.format(_context.getString(R.string.score),  _list[position].v_score))
-        holder.name.setText(String.format(_context.getString(R.string.score),  _list[position].v_name))
-        holder.note.setText(String.format(_context.getString(R.string.score),  _list[position].v_note))
+        holder.score.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_score))
+        holder.name.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_name))
+        holder.note.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_note))
         return v
     }
 

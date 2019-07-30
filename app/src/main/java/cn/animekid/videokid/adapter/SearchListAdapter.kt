@@ -52,12 +52,12 @@ class SearchListAdapter(private val _context: Context, private val _list: ArrayL
                 .apply(RequestOptions().dontAnimate())
                 .into(holder.simage)
 
-        holder.sname.setText(String.format(_context.getString(R.string.score),  _list[position].v_name))
-        holder.sarea.setText(String.format(_context.getString(R.string.score),  _list[position].v_publisharea))
-        holder.syear.setText(String.format(_context.getString(R.string.score),  _list[position].v_publishyear))
-        holder.stype.setText(String.format(_context.getString(R.string.score),  _list[position].tid.tname))
-        holder.slang.setText(String.format(_context.getString(R.string.score),  _list[position].v_lang))
-        holder.sstatus.setText(String.format(_context.getString(R.string.score),  _list[position].v_note))
+        holder.sname.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_name))
+        holder.sarea.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_publisharea))
+        holder.syear.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_publishyear))
+        holder.stype.setText(String.format(_context.getString(R.string.format_string),  _list[position].tid.tname))
+        holder.slang.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_lang))
+        holder.sstatus.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_note))
         holder.sactor.setText(String.format(_context.getString(R.string.actors),  _list[position].v_actors))
         holder.sdirector.setText(String.format(_context.getString(R.string.directors),  _list[position].v_director))
         return v

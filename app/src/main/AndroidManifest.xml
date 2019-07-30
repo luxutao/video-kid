@@ -61,6 +61,18 @@
         <activity android:name=".ui.RandomActivity"
             android:label="@string/navbar_random"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.RegisterActivity"
+            android:label="@string/nav_name_register"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.LoginActivity"
+            android:label="@string/nav_name_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.ForgetPasswordActivity"
+            android:label="@string/str_forget_password"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.ProfileActivity"
+            android:label="@string/nav_name_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

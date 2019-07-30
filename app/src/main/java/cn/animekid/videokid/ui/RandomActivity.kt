@@ -49,7 +49,7 @@ class RandomActivity: BaseAAppCompatActivity() {
     }
 
     fun getRandomResult() {
-        Requester.ImageService().getRandomVideo().enqueue(object : Callback<DetailsBean> {
+        Requester.VideoService().getRandomVideo().enqueue(object : Callback<DetailsBean> {
             override fun onResponse(call: Call<DetailsBean>, response: Response<DetailsBean>) {
                 val res = response.body()!!.data
                 this@RandomActivity.randomDataList.clear()
