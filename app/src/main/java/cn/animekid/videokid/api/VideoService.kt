@@ -78,6 +78,11 @@ interface ImageService {
             @Query("year") year: String, @Query("vtp") vtp: String, @Query("size") size: Int = 10
     ): Call<ListDataBean>
 
+    @GET("getRandomVideo")
+    fun getRandomVideo(
+            @Query("ticket") ticket: String = ToolsHelper.getTicket("getRandomVideo")
+    ): Call<DetailsBean>
+
 }
 
 

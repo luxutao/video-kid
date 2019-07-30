@@ -111,7 +111,7 @@
 
 
                     <TextView
-                        android:id="@+id/v_digg"
+                        android:id="@+id/v_hit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -201,8 +201,7 @@
                     android:id="@+id/player1_player_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="10dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -253,8 +252,7 @@
                     android:id="@+id/player2_player_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="10dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -303,8 +301,7 @@
                     android:id="@+id/player3_player_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="10dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"

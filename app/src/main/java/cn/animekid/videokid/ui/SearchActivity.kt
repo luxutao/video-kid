@@ -28,7 +28,7 @@ class SearchActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
-        s = intent.extras.get(SearchManager.QUERY).toString()
+        this.s = intent.extras.get(SearchManager.QUERY).toString()
         Log.e("search", s)
         this.initUI()
         this.getSearchResult(1)
@@ -61,7 +61,7 @@ class SearchActivity: AppCompatActivity() {
     }
 
     fun getSearchResult(page: Int) {
-        Requester.ImageService().search(page = page, s = s).enqueue(object : Callback<DetailsBean> {
+        Requester.ImageService().search(page = page, s = this.s).enqueue(object : Callback<DetailsBean> {
             override fun onResponse(call: Call<DetailsBean>, response: Response<DetailsBean>) {
                 val res = response.body()!!.data
                 this@SearchActivity.searchDataList.addAll(res)

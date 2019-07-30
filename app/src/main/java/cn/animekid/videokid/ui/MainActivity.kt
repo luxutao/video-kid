@@ -99,7 +99,8 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_random -> {
-                // Handle the camera action
+                val intent = Intent(this, RandomActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_profile -> {
 

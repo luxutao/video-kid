@@ -58,6 +58,9 @@
         <activity android:name=".ui.SettingsActivity"
             android:label="@string/nav_name_settings"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.RandomActivity"
+            android:label="@string/navbar_random"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

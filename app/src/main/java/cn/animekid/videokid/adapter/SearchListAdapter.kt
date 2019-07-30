@@ -46,9 +46,10 @@ class SearchListAdapter(private val _context: Context, private val _list: ArrayL
         Glide.with(v)
                 .load(_list[position].v_pic)
                 .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_image_loading))
-                .apply(RequestOptions.errorOf(R.drawable.ic_image_loading_error))
-                .transition(withCrossFade())
+                .apply(RequestOptions().placeholder(R.drawable.video_item_loading_placeholder))
+                .apply(RequestOptions().error(R.drawable.video_item_loading_error))
+                .apply(RequestOptions().centerCrop())
+                .apply(RequestOptions().dontAnimate())
                 .into(holder.simage)
 
         holder.sname.setText(String.format(_context.getString(R.string.score),  _list[position].v_name))

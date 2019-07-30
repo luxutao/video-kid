@@ -20,6 +20,7 @@ import cn.animekid.videokid.utils.PrettyImageView
 import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,7 +35,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
     private lateinit var v_year: TextView
     private lateinit var v_area: TextView
     private lateinit var v_tname: TextView
-    private lateinit var v_digg: TextView
+    private lateinit var v_hit: TextView
     private lateinit var v_lang: TextView
     private lateinit var v_desc: TextView
     private lateinit var v_actor: LinearLayout
@@ -58,7 +59,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val v_id = intent.extras.getInt("v_id")
-        loading = LoadingDialog(this).showLoading()
+        this.loading = LoadingDialog(this).showLoading()
         this.initUI()
         this.getDetail(v_id)
     }
@@ -68,23 +69,23 @@ class PlayerActivity : BaseAAppCompatActivity() {
     }
     
     fun initUI() {
-        videoView = findViewById(R.id.video_view)
-        v_name = this.findViewById(R.id.v_name)
-        v_score_star = this.findViewById(R.id.v_score_star)
-        v_score = this.findViewById(R.id.v_score)
-        v_year = this.findViewById(R.id.v_year)
-        v_area = this.findViewById(R.id.v_area)
-        v_tname = this.findViewById(R.id.v_tname)
-        v_digg = this.findViewById(R.id.v_digg)
-        v_lang = this.findViewById(R.id.v_lang)
-        v_desc = this.findViewById(R.id.v_desc)
-        v_actor = this.findViewById(R.id.horizontalScrollViewItemContainer)
-        player1_player_layout = this.findViewById(R.id.player1_player_layout)
-        player1_image_button = this.findViewById(R.id.player1_image_button)
-        player2_player_layout = this.findViewById(R.id.player2_player_layout)
-        player2_image_button = this.findViewById(R.id.player2_image_button)
-        player3_player_layout = this.findViewById(R.id.player3_player_layout)
-        player3_image_button = this.findViewById(R.id.player3_image_button)
+        this.videoView = findViewById(R.id.video_view)
+        this.v_name = this.findViewById(R.id.v_name)
+        this.v_score_star = this.findViewById(R.id.v_score_star)
+        this.v_score = this.findViewById(R.id.v_score)
+        this.v_year = this.findViewById(R.id.v_year)
+        this.v_area = this.findViewById(R.id.v_area)
+        this.v_tname = this.findViewById(R.id.v_tname)
+        this.v_hit = this.findViewById(R.id.v_hit)
+        this.v_lang = this.findViewById(R.id.v_lang)
+        this.v_desc = this.findViewById(R.id.v_desc)
+        this.v_actor = this.findViewById(R.id.horizontalScrollViewItemContainer)
+        this.player1_player_layout = this.findViewById(R.id.player1_player_layout)
+        this.player1_image_button = this.findViewById(R.id.player1_image_button)
+        this.player2_player_layout = this.findViewById(R.id.player2_player_layout)
+        this.player2_image_button = this.findViewById(R.id.player2_image_button)
+        this.player3_player_layout = this.findViewById(R.id.player3_player_layout)
+        this.player3_image_button = this.findViewById(R.id.player3_image_button)
 
     }
 
@@ -92,34 +93,37 @@ class PlayerActivity : BaseAAppCompatActivity() {
         Requester.ImageService().getDetail(vid = v_id).enqueue(object: Callback<DetailBean> {
             override fun onResponse(call: Call<DetailBean>, response: Response<DetailBean>) {
                 val res = response.body()!!.data
-                v_name.text = res.v_name
-                v_year.text = res.v_publishyear.toString()
-                v_area.text = res.v_publisharea
-                v_tname.text = res.tid.tname
-                v_digg.text = String.format(this@PlayerActivity.getString(R.string.player_hit), res.v_hit)
-                v_score.text = res.score
-                v_desc.text = res.v_content.body
-                v_score_star.rating = (res.score.toFloat() * 0.5).toFloat()
+                this@PlayerActivity.v_name.text = res.v_name
+                this@PlayerActivity.v_year.text = res.v_publishyear.toString()
+                this@PlayerActivity.v_area.text = res.v_publisharea
+                this@PlayerActivity.v_tname.text = res.tid.tname
+                this@PlayerActivity.v_hit.text = String.format(this@PlayerActivity.getString(R.string.player_hit), res.v_hit)
+                this@PlayerActivity.v_score.text = res.score
+                this@PlayerActivity.v_desc.text = res.v_content.body
+                this@PlayerActivity.v_score_star.rating = (res.score.toFloat() * 0.5).toFloat()
                 this@PlayerActivity.player1list.addAll(res.v_playdata.body[0].playdata)
                 this@PlayerActivity.player2list.addAll(res.v_playdata.body[1].playdata)
                 this@PlayerActivity.player3list.addAll(res.v_playdata.body[2].playdata)
-                v_lang.text = res.v_lang
+                this@PlayerActivity.v_lang.text = res.v_lang
                 for (actor in res.v_actor) {
                     val newLyout = this@PlayerActivity.layoutInflater.inflate(R.layout.detail_actor_item, v_actor, false)
                     val actor_name = newLyout.findViewById<MarqueeText>(R.id.actor_name)
                     val actor_avatar = newLyout.findViewById<PrettyImageView>(R.id.actor_avatar)
                     Glide.with(this@PlayerActivity)
-                        .load(actor.avatar)
-                        .apply(RequestOptions.placeholderOf(R.drawable.ic_image_loading))
-                        .apply(RequestOptions.errorOf(R.drawable.ic_image_loading_error))
-                        .into(actor_avatar)
+                            .load(actor.avatar)
+                            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+                            .apply(RequestOptions.placeholderOf(R.drawable.video_item_loading_placeholder))
+                            .apply(RequestOptions.errorOf(R.drawable.video_item_loading_error))
+                            .apply(RequestOptions().centerCrop())
+                            .apply(RequestOptions().dontAnimate())
+                            .into(actor_avatar)
                     actor_name.text = actor.name
-                    v_actor.addView(newLyout)
-                    v_actor.invalidate()
+                    this@PlayerActivity.v_actor.addView(newLyout)
+                    this@PlayerActivity.v_actor.invalidate()
                 }
                 this@PlayerActivity.makePlayerList()
-                videoView.setUp(this@PlayerActivity.player1list[0].url,  res.v_name)
-                videoView.startVideo()
+                this@PlayerActivity.videoView.setUp(this@PlayerActivity.player1list[0].url,  this@PlayerActivity.player1list[0].gather)
+                this@PlayerActivity.videoView.startVideo()
                 this@PlayerActivity.loading.dismiss()
             }
             override fun onFailure(call: Call<DetailBean>, t: Throwable) {
@@ -188,12 +192,12 @@ class PlayerActivity : BaseAAppCompatActivity() {
         val onItem = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val index = parent.getItemIdAtPosition(position)
             val bean = playerlist.get(index.toInt())
-            if (videoView.state == Jzvd.STATE_ERROR) {
-                videoView.setUp(bean.url, bean.gather)
+            if (this.videoView.state == Jzvd.STATE_ERROR) {
+                this.videoView.setUp(bean.url, bean.gather)
             } else {
-                videoView.changeUrl(bean.url, bean.gather,0)
+                this.videoView.changeUrl(bean.url, bean.gather,0)
             }
-            videoView.startVideo()
+            this.videoView.startVideo()
         }
         return onItem
     }

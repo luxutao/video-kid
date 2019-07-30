@@ -46,4 +46,5 @@
     <string name="feedback_email">Email</string>
     <string name="feedback_email_label">邮箱</string>
     <string name="feedback_submit">一键反馈</string>
+    <string name="navbar_random">随机推荐</string>
 </resources>

@@ -46,7 +46,7 @@ class ImageAdapter(private val _context: Context, private val _list: ArrayList<I
         Glide.with(v)
                 .load(_list[position].v_pic)
                 .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
-                .apply(RequestOptions().placeholder(R.drawable.video_item_loading_placeholder))
+                .apply(RequestOptions().placeholder(R.drawable.video_item_loading_placeholder_layer))
                 .apply(RequestOptions().error(R.drawable.video_item_loading_error))
                 .apply(RequestOptions().centerCrop())
                 .apply(RequestOptions().dontAnimate())
