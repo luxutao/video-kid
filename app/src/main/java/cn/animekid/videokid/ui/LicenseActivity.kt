@@ -23,4 +23,8 @@ class LicenseActivity: BaseAAppCompatActivity() {
     override fun getLayoutId(): Int {
         return R.layout.activity_license
     }
+
+    override fun getToolbarTitle(): Int {
+        return R.string.nav_name_license
+    }
 }

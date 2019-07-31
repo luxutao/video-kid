@@ -55,4 +55,8 @@ class FeedbackActivity: BaseAAppCompatActivity() {
     override fun getLayoutId(): Int {
         return R.layout.activity_feedback
     }
+
+    override fun getToolbarTitle(): Int {
+        return R.string.feedback_content_label
+    }
 }

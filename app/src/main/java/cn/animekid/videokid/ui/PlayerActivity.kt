@@ -15,10 +15,7 @@ import cn.animekid.videokid.api.Requester
 import cn.animekid.videokid.data.BasicResponse
 import cn.animekid.videokid.data.DetailBean
 import cn.animekid.videokid.data.Playdata
-import cn.animekid.videokid.utils.AutoHeightGridView
-import cn.animekid.videokid.utils.LoadingDialog
-import cn.animekid.videokid.utils.MarqueeText
-import cn.animekid.videokid.utils.PrettyImageView
+import cn.animekid.videokid.utils.*
 import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
 import com.bumptech.glide.Glide
@@ -57,18 +54,18 @@ class PlayerActivity : BaseAAppCompatActivity() {
     private var player1_status: Boolean = false
     private var player2_status: Boolean = true
     private var player3_status: Boolean = false
-    private lateinit var v_digg_image: PrettyImageView
+    private lateinit var v_digg_image: ImageView
     private lateinit var v_digg_text: TextView
-    private lateinit var v_tread_image: PrettyImageView
+    private lateinit var v_tread_image: ImageView
     private lateinit var v_tread_text: TextView
-    private lateinit var v_collect_image: PrettyImageView
+    private lateinit var v_collect_image: ImageView
     private lateinit var v_collect_text: TextView
-    private lateinit var v_question: PrettyImageView
+    private lateinit var v_question: ImageView
     private var v_id: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.isLogin()
+
         this.v_id = intent.extras.getInt("v_id")
         this.loading = LoadingDialog(this).showLoading()
         this.initUI()
@@ -78,6 +75,10 @@ class PlayerActivity : BaseAAppCompatActivity() {
 
     override fun getLayoutId(): Int {
         return R.layout.activity_player
+    }
+
+    override fun getToolbarTitle(): Int {
+        return R.string.nav_name_player
     }
 
     fun setListen() {
@@ -90,7 +91,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
             this.diggTread("tread", "(⊙o⊙)哦，要努力了")
         }
         this.v_question.setOnClickListener {
-            Requester.VideoService().feedbackNotPlay("123", this.v_id, this.v_name.text.toString()).enqueue(object: Callback<BasicResponse> {
+            Requester.VideoService().feedbackNotPlay(ToolsHelper.getToken(this), this.v_id, this.v_name.text.toString()).enqueue(object: Callback<BasicResponse> {
                 override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                     Toast.makeText(this@PlayerActivity, "感谢您的反馈，我们会尽快解决。", Toast.LENGTH_SHORT).show()
                 }
@@ -99,13 +100,6 @@ class PlayerActivity : BaseAAppCompatActivity() {
                     Log.e("error", t.message)
                 }
             })
-        }
-    }
-
-    fun isLogin(){
-        if (this.UserInfo.userid == 0) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
         }
     }
     
@@ -174,7 +168,6 @@ class PlayerActivity : BaseAAppCompatActivity() {
                 }
                 this@PlayerActivity.makePlayerList()
                 this@PlayerActivity.videoView.setUp(this@PlayerActivity.player1list[0].url,  this@PlayerActivity.player1list[0].gather)
-                this@PlayerActivity.videoView.startVideo()
                 this@PlayerActivity.loading.dismiss()
             }
             override fun onFailure(call: Call<DetailBean>, t: Throwable) {
@@ -243,7 +236,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
         val onItem = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val index = parent.getItemIdAtPosition(position)
             val bean = playerlist.get(index.toInt())
-            if (this.videoView.state == Jzvd.STATE_ERROR) {
+            if (this.videoView.state == Jzvd.STATE_ERROR || this.videoView.state == Jzvd.STATE_NORMAL) {
                 this.videoView.setUp(bean.url, bean.gather)
             } else {
                 this.videoView.changeUrl(bean.url, bean.gather,0)
@@ -256,7 +249,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
     fun diggTread(v_type: String, message: String) {
         this.v_digg_image.isEnabled = false
         this.v_tread_image.isEnabled = false
-        Requester.VideoService().diggTread("123", this.v_id, v_type).enqueue(object: Callback<BasicResponse> {
+        Requester.VideoService().diggTread(ToolsHelper.getToken(this), this.v_id, v_type).enqueue(object: Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 Toast.makeText(this@PlayerActivity, message, Toast.LENGTH_SHORT).show()
             }
@@ -277,16 +270,6 @@ class PlayerActivity : BaseAAppCompatActivity() {
     override fun onPause() {
         super.onPause()
         Jzvd.resetAllVideos()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        this.getData()
-        Log.e("restartUserid", this.UserInfo.userid.toString())
-        if (this.UserInfo.userid == 0) {
-            this.loading.dismiss()
-            this.finish()
-        }
     }
 
 }

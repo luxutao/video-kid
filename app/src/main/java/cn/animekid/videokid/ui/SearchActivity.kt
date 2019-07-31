@@ -18,7 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchActivity: AppCompatActivity() {
+class SearchActivity: BaseAAppCompatActivity() {
 
     private var searchDataList: ArrayList<Data> = arrayListOf()
     private lateinit var searchList: ListView
@@ -27,11 +27,10 @@ class SearchActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_result)
         this.s = intent.extras.get(SearchManager.QUERY).toString()
-        Log.e("search", s)
         this.initUI()
         this.getSearchResult(1)
+
     }
 
     fun initUI() {
@@ -52,11 +51,8 @@ class SearchActivity: AppCompatActivity() {
         })
         this.searchList.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val index = parent.getItemIdAtPosition(position)
-            Log.e("searchid", index.toString())
             val bean = this@SearchActivity.searchDataList.get(index.toInt())
-            val intent = Intent(this, PlayerActivity::class.java)
-            intent.putExtra("v_id", bean.v_id)
-            startActivity(intent)
+            this.isLogin(bean.v_id)
         }
     }
 
@@ -74,5 +70,13 @@ class SearchActivity: AppCompatActivity() {
                 this@SearchActivity.finish()
             }
         })
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_search_result
+    }
+
+    override fun getToolbarTitle(): Int {
+        return R.string.nav_name_search_result
     }
 }

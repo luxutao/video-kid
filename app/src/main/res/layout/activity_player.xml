@@ -126,28 +126,20 @@
                     android:layout_marginVertical="10dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal">
 
-                        <cn.animekid.videokid.utils.PrettyImageView
+                        <ImageView
                             android:id="@+id/v_digg_image"
                             android:layout_width="24dp"
                             android:layout_height="22dp"
                             android:scaleType="centerCrop"
-                            app:border_color="#ff9900"
-                            app:border_width="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-
-                            app:shape_type="SHAPE_ROUND"
-                            android:src="@drawable/ic_digg"
-                            app:show_border="false"/>
+                            android:padding="2dp"
+                            android:src="@drawable/ic_digg"/>
 
                         <cn.animekid.videokid.utils.MarqueeText
                             android:id="@+id/v_digg_text"
@@ -160,33 +152,25 @@
                             android:singleLine="true"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
-                            android:scrollHorizontally="true"
-                            android:text="111"/>
+                            android:scrollHorizontally="true"/>
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal">
 
-                        <cn.animekid.videokid.utils.PrettyImageView
+                        <ImageView
                             android:id="@+id/v_tread_image"
                             android:layout_width="24dp"
                             android:layout_height="22dp"
                             android:scaleType="centerCrop"
-                            app:border_color="#ff9900"
-                            app:border_width="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:shape_type="SHAPE_ROUND"
-                            android:src="@drawable/ic_tread"
-                            app:show_border="false"/>
+                            android:padding="2dp"
+                            android:src="@drawable/ic_tread"/>
 
                         <cn.animekid.videokid.utils.MarqueeText
                             android:id="@+id/v_tread_text"
@@ -199,34 +183,26 @@
                             android:singleLine="true"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
-                            android:scrollHorizontally="true"
-                            android:text="111"/>
+                            android:scrollHorizontally="true"/>
 
                     </LinearLayout>
 
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal">
 
-                        <cn.animekid.videokid.utils.PrettyImageView
+                        <ImageView
                             android:id="@+id/v_collect_image"
                             android:layout_width="22dp"
                             android:layout_height="22dp"
                             android:scaleType="centerCrop"
-                            app:border_color="#ff9900"
-                            app:border_width="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:shape_type="SHAPE_ROUND"
-                            android:src="@drawable/ic_collect"
-                            app:show_border="false"/>
+                            android:padding="2dp"
+                            android:src="@drawable/ic_collect"/>
 
                         <cn.animekid.videokid.utils.MarqueeText
                             android:id="@+id/v_collect_text"
@@ -239,34 +215,26 @@
                             android:singleLine="true"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
-                            android:scrollHorizontally="true"
-                            android:text="111"/>
+                            android:scrollHorizontally="true"/>
 
                     </LinearLayout>
 
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:layout_marginHorizontal="20dp"
                         android:gravity="center_vertical|center_horizontal">
 
-                        <cn.animekid.videokid.utils.PrettyImageView
+                        <ImageView
                             android:id="@+id/v_question_image"
                             android:layout_width="22dp"
                             android:layout_height="22dp"
                             android:scaleType="centerCrop"
-                            app:border_color="#ff9900"
-                            app:border_width="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:shape_type="SHAPE_ROUND"
-                            android:src="@drawable/ic_question"
-                            app:show_border="false"/>
+                            android:padding="2dp"
+                            android:src="@drawable/ic_question"/>
 
                         <cn.animekid.videokid.utils.MarqueeText
                             android:layout_width="match_parent"

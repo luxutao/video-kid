@@ -45,6 +45,8 @@ class FragmentHome: Fragment() {
     private lateinit var showsAdapter: ImageAdapter
     private lateinit var swipeLayout: SwipeRefreshLayout
     private lateinit var errorview : LinearLayout
+    lateinit var activityInteraction: BaseFFragment.FragmentInteraction
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
@@ -91,9 +93,7 @@ class FragmentHome: Fragment() {
                     .setBannerPageListener(object: XBanner.BannerPageListener {
                         override fun onBannerClick(item: Int) {
                             val detaildata = data.get(item)
-                            val intent = Intent(this@FragmentHome.context, PlayerActivity::class.java)
-                            intent.putExtra("v_id", detaildata.v_id)
-                            startActivity(intent)
+                            this@FragmentHome.activityInteraction.isLogin(detaildata.v_id)
                         }
 
                         override fun onBannerDragging(item: Int) {
@@ -172,9 +172,7 @@ class FragmentHome: Fragment() {
         val onItem = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val index = parent.getItemIdAtPosition(position)
             val bean = dataList.get(index.toInt())
-            val intent = Intent(this.context, PlayerActivity::class.java)
-            intent.putExtra("v_id", bean.v_id)
-            startActivity(intent)
+            activityInteraction.isLogin(bean.v_id)
         }
         return onItem
     }
@@ -182,6 +180,16 @@ class FragmentHome: Fragment() {
 
     companion object {
         fun newInstance(): FragmentHome = FragmentHome()
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (activity is BaseFFragment.FragmentInteraction) {
+            activityInteraction = activity as BaseFFragment.FragmentInteraction
+        } else {
+            throw IllegalArgumentException("activity must implements FragmentInteraction")
+        }
+
     }
 
     override fun onDestroy() {

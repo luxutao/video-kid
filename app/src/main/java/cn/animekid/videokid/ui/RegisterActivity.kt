@@ -103,4 +103,8 @@ class RegisterActivity: BaseAAppCompatActivity() {
     override fun getLayoutId(): Int {
         return R.layout.activity_register
     }
+
+    override fun getToolbarTitle(): Int {
+        return R.string.nav_name_register
+    }
 }

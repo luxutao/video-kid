@@ -1,6 +1,7 @@
 package cn.animekid.videokid.fragment
 
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -12,6 +13,7 @@ import cn.animekid.videokid.api.Requester
 import cn.animekid.videokid.data.ImageData
 import cn.animekid.videokid.data.ListDataBean
 import cn.animekid.videokid.data.SearchTypeBean
+import cn.animekid.videokid.ui.LoginActivity
 import cn.animekid.videokid.ui.PlayerActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +26,7 @@ open class BaseFFragment : Fragment() {
     lateinit var videoAdapter : ImageAdapter
     lateinit var errorview : LinearLayout
     lateinit var videoList: GridView
+    lateinit var activityInteraction: FragmentInteraction
 
      var video_types: java.util.ArrayList<SearchTypeBean> = arrayListOf(
             SearchTypeBean(0, "全部"), SearchTypeBean(9, "战争片"), SearchTypeBean(10, "喜剧片"),
@@ -99,9 +102,7 @@ open class BaseFFragment : Fragment() {
         this.videoList.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val index = parent.getItemIdAtPosition(position)
             val bean = this@BaseFFragment.videoImageList.get(index.toInt())
-            val intent = Intent(this.context, PlayerActivity::class.java)
-            intent.putExtra("v_id", bean.v_id)
-            startActivity(intent)
+            activityInteraction.isLogin(bean.v_id)
         }
     }
 
@@ -177,5 +178,18 @@ open class BaseFFragment : Fragment() {
         this.video_years.add(SearchTypeBean(10001, "更早"))
     }
 
+    interface FragmentInteraction {
+        fun isLogin(v_id: Int)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (activity is FragmentInteraction) {
+            activityInteraction = activity as FragmentInteraction
+        } else {
+            throw IllegalArgumentException("activity must implements FragmentInteraction")
+        }
+
+    }
 
 }

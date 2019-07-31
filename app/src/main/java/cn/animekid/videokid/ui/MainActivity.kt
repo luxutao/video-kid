@@ -145,11 +145,24 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
         return R.layout.activity_main
     }
 
+    override fun getToolbarTitle(): Int {
+        return R.string.nav_name_home
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.action_settings).actionView as SearchView
+//        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(p0: String?): Boolean {
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(p0: String?): Boolean {
+//                return false
+//            }
+//        })
+
         val searchableInfo = searchManager.getSearchableInfo(componentName)
         searchView.setSearchableInfo(searchableInfo)
         return true

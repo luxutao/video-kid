@@ -41,9 +41,7 @@ class RandomActivity: BaseAAppCompatActivity() {
         this.randomList.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val index = parent.getItemIdAtPosition(position)
             val bean = this@RandomActivity.randomDataList.get(index.toInt())
-            val intent = Intent(this, PlayerActivity::class.java)
-            intent.putExtra("v_id", bean.v_id)
-            startActivity(intent)
+            this.isLogin(bean.v_id)
         }
         this.randomRefresh.setOnClickListener { this.getRandomResult() }
     }
@@ -66,5 +64,9 @@ class RandomActivity: BaseAAppCompatActivity() {
 
     override fun getLayoutId(): Int {
         return R.layout.activity_random
+    }
+
+    override fun getToolbarTitle(): Int {
+        return R.string.navbar_random
     }
 }

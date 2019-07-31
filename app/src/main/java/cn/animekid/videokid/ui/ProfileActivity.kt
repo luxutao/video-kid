@@ -97,4 +97,7 @@ class ProfileActivity: BaseAAppCompatActivity() {
         return R.layout.activity_profile
     }
 
+    override fun getToolbarTitle(): Int {
+        return R.string.nav_name_profile
+    }
 }

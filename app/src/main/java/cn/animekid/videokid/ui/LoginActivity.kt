@@ -108,5 +108,8 @@ class LoginActivity: BaseAAppCompatActivity() {
         return  R.layout.activity_login
     }
 
+    override fun getToolbarTitle(): Int {
+        return R.string.nav_name_login
+    }
 }
 

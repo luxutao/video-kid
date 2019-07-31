@@ -57,4 +57,7 @@ class ForgetPasswordActivity: BaseAAppCompatActivity() {
         return R.layout.activity_forget_password
     }
 
+    override fun getToolbarTitle(): Int {
+        return R.string.str_forget_password
+    }
 }
