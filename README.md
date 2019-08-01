@@ -1,5 +1,14 @@
 ### 视频APP
 
+#### V1.6.0
+1. 优化搜索功能。
+2. 添加了最热搜索关键词。
+3. 添加了搜索记录显示及清除。
+4. 添加了启动检查版本更新功能。
+5. 添加了退出需要两下按键功能。
+6. 修复了无法使用年份进行筛选视频的问题。
+7. 修复了个人资料里不显示头像的问题。
+
 #### V1.5.0
 更新了很多东西
 1. 新增了登录功能。
@@ -21,6 +30,7 @@
 ![scrrenshot](screenshot/Screenshot_1564549679.png)
 ![scrrenshot](screenshot/Screenshot_1564549522.png)
 ![scrrenshot](screenshot/Screenshot_1564549573.png)
+![scrrenshot](screenshot/Screenshot_1564649657.png)
 ![scrrenshot](screenshot/Screenshot_1564549608.png)
 ![scrrenshot](screenshot/Screenshot_1564549630.png)
 ![scrrenshot](screenshot/Screenshot_1564549637.png)

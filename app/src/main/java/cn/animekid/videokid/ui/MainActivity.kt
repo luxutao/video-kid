@@ -1,18 +1,18 @@
 package cn.animekid.videokid.ui
 
-import android.app.SearchManager
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.SearchView
 import android.util.Log
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -32,12 +32,12 @@ import org.jetbrains.anko.db.delete
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.nio.file.Files.delete
 
 class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     private var currentFragment: Fragment? = null
     private var islogin: Boolean = false
+    private var isExit: Boolean = false
     private lateinit var navView: NavigationView
     private lateinit var navheaderView: View
     private lateinit var UserAvatar: ImageView
@@ -46,10 +46,31 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var UserProfile: MenuItem
     private lateinit var UserLogout: MenuItem
     private lateinit var BottomMenu: BottomNavigationView
+    private var handler: Handler = @SuppressLint("HandlerLeak")
+    object: Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            isExit = false
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.initUI()
+
+        val packetInfo = this.packageManager.getPackageInfo(this.packageName, 0)
+        Requester.PublicService().checkUpdate(app_version = packetInfo.versionName).enqueue(object: Callback<BasicResponse> {
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                if (response.body()!!.data == "True") {
+                    Toast.makeText(this@MainActivity, "有新版本了哦，请扫描分享二维码进行下载。", Toast.LENGTH_LONG).show()
+
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "连接服务器错误", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         this.UserAvatar.setOnClickListener {
             if (!this.islogin) {
@@ -148,23 +169,10 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun getToolbarTitle(): Int {
         return R.string.nav_name_home
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.action_settings).actionView as SearchView
-//        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(p0: String?): Boolean {
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(p0: String?): Boolean {
-//                return false
-//            }
-//        })
-
-        val searchableInfo = searchManager.getSearchableInfo(componentName)
-        searchView.setSearchableInfo(searchableInfo)
+        menuInflater.inflate(R.menu.activity_main_search_menu, menu)
         return true
     }
 
@@ -173,9 +181,12 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
+            R.id.action_search -> {
+                val intent = Intent(this, SearchActivity::class.java)
+                startActivity(intent)
+            }
         }
+        return true
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -248,4 +259,28 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
         }
 
     }
+
+
+    // 重写物理按键，如果要退出则执行判断
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            this.exit()
+            return false
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    // 两次退出则退出
+    private fun exit() {
+        if (!this.isExit){
+            this.isExit = true
+            Toast.makeText(getApplicationContext(),"再按一次退出程序",Toast.LENGTH_SHORT).show()
+            //利用handler延迟发送更改状态信息
+            this.handler.sendEmptyMessageDelayed(0,2000)
+        } else{
+            finish()
+            System.exit(0)
+        }
+    }
+
 }

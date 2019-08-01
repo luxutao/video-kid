@@ -164,7 +164,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/nav_name_register"
-                            android:background="@color/colorAccent"/>
+                            android:background="@color/colorBar"/>
 
                     </LinearLayout>
 

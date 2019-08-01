@@ -108,6 +108,9 @@ interface VideoService {
     @GET("getSpic")
     fun getSpic(@Query("ticket") ticket: String = ToolsHelper.getTicket("getSpic")): Call<ListSpicBean>
 
+    @GET("getHotVideo")
+    fun getHotVideo(@Query("ticket") ticket: String = ToolsHelper.getTicket("getHotVideo")): Call<HotSearchData>
+
     @GET("getDetail")
     fun getDetail(@Query("ticket") ticket: String = ToolsHelper.getTicket("getDetail"), @Query("vid") vid: Int): Call<DetailBean>
 

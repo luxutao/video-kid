@@ -29,6 +29,9 @@ class DBOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "anime", null, 1
                 "create_time" to TEXT,
                 "token" to TEXT,
                 "avatar" to TEXT)
+        db.createTable("search_history", true,
+                "id" to INTEGER + PRIMARY_KEY  + AUTOINCREMENT,
+                "v_name" to TEXT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

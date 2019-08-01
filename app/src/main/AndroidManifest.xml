@@ -25,7 +25,6 @@
             android:name=".ui.MainActivity"
             android:label="@string/nav_name_home"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchActivity"/>
         </activity>
         <activity
             android:name=".ui.PlayerActivity"
@@ -34,18 +33,23 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.SearchActivity"
+        <activity android:name=".ui.SearchResultActivity"
             android:label="@string/nav_name_search_result"
-            android:parentActivityName=".ui.MainActivity"
+            android:parentActivityName=".ui.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".ui.SearchActivity" />
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.SearchActivity"
+            android:label="@string/action_search"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchResultActivity"/>
         </activity>
         <activity android:name=".ui.LicenseActivity"
             android:label="@string/nav_name_license"

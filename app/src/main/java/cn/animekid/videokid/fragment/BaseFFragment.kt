@@ -173,7 +173,7 @@ open class BaseFFragment : Fragment() {
         val year = Calendar.getInstance().get(Calendar.YEAR)
         for (i in 0..10) {
             val changeYear = year - i
-            this.video_years.add(SearchTypeBean(year, changeYear.toString()))
+            this.video_years.add(SearchTypeBean(changeYear, changeYear.toString()))
         }
         this.video_years.add(SearchTypeBean(10001, "更早"))
     }
