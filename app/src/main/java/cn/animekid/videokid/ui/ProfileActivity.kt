@@ -3,6 +3,7 @@ package cn.animekid.videokid.ui
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -40,7 +41,7 @@ class ProfileActivity: BaseAAppCompatActivity() {
         this.layoutSex.setOnClickListener {
             val sex_array = arrayOf("男","女")
             val dialog = AlertDialog.Builder(this)
-            dialog.setTitle("提示").setSingleChoiceItems(sex_array, 0) { t_dialog, which ->
+            dialog.setTitle("提示").setSingleChoiceItems(sex_array,sex_array.asList().indexOf(this.UserInfo.sex)) { t_dialog, which ->
                 Requester.AuthService().changeProfile(token = ToolsHelper.getToken(this@ProfileActivity), email = this.UserInfo.email, name = "", sex = sex_array[which]).enqueue(object: Callback<BasicResponse> {
                     override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                         this@ProfileActivity.userSex.text = sex_array[which]
@@ -60,9 +61,11 @@ class ProfileActivity: BaseAAppCompatActivity() {
         this.layoutName.setOnClickListener {
             val dialog = AlertDialog.Builder(this)
             val newview = View.inflate(this, R.layout.change_profile_name, null)
+            val newEditText = newview.findViewById<EditText>(R.id.new_name)
+            newEditText.text = SpannableStringBuilder(this.UserInfo.name)
             dialog.setTitle("提示").setView(newview)
             dialog.setPositiveButton("确认", DialogInterface.OnClickListener { t_dialog, which ->
-                val newName = newview.findViewById<EditText>(R.id.new_name).text.toString()
+                val newName = newEditText.text.toString()
                 if (TextUtils.isEmpty(newName)) { return@OnClickListener }
                 Requester.AuthService().changeProfile(token = ToolsHelper.getToken(this@ProfileActivity), email = this.UserInfo.email, name = newName, sex = "").enqueue(object: Callback<BasicResponse> {
                     override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {

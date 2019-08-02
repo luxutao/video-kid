@@ -70,7 +70,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
         this.loading = LoadingDialog(this).showLoading()
         this.initUI()
         this.getDetail(this.v_id)
-        this.setListen()
+        this.setListener()
     }
 
     override fun getLayoutId(): Int {
@@ -81,13 +81,15 @@ class PlayerActivity : BaseAAppCompatActivity() {
         return R.string.nav_name_player
     }
 
-    fun setListen() {
+    fun setListener() {
         this.v_digg_image.setOnClickListener {
             this.v_digg_image.setImageDrawable(getDrawable(R.drawable.ic_digg_solid))
+            this.v_digg_text.text = String.format(this.getString(R.string.format_string), this.v_digg_text.text.toString().toInt() + 1)
             this.diggTread("digg", "感谢你的点赞")
         }
         this.v_tread_image.setOnClickListener {
             this.v_tread_image.setImageDrawable(getDrawable(R.drawable.ic_tread_solid))
+            this.v_tread_text.text = String.format(this.getString(R.string.format_string), this.v_tread_text.text.toString().toInt() + 1)
             this.diggTread("tread", "(⊙o⊙)哦，要努力了")
         }
         this.v_question.setOnClickListener {

@@ -1,8 +1,8 @@
 package cn.animekid.videokid.fragment
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.View
@@ -13,8 +13,6 @@ import cn.animekid.videokid.api.Requester
 import cn.animekid.videokid.data.ImageData
 import cn.animekid.videokid.data.ListDataBean
 import cn.animekid.videokid.data.SearchTypeBean
-import cn.animekid.videokid.ui.LoginActivity
-import cn.animekid.videokid.ui.PlayerActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,6 +102,10 @@ open class BaseFFragment : Fragment() {
             val bean = this@BaseFFragment.videoImageList.get(index.toInt())
             activityInteraction.isLogin(bean.v_id)
         }
+    }
+
+    fun goTop() {
+        this.videoList.smoothScrollToPositionFromTop(0, 0)
     }
 
     fun loadingMore(page: Int, reload: Boolean = false, size: Int = 10) {

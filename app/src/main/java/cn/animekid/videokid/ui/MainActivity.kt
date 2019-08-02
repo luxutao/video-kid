@@ -38,6 +38,7 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
     private var currentFragment: Fragment? = null
     private var islogin: Boolean = false
     private var isExit: Boolean = false
+    private var returnTop: Boolean = false
     private lateinit var navView: NavigationView
     private lateinit var navheaderView: View
     private lateinit var UserAvatar: ImageView
@@ -51,6 +52,13 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
         override fun handleMessage(msg: Message?) {
             super.handleMessage(msg)
             isExit = false
+        }
+    }
+    private var mHandler: Handler = @SuppressLint("HandlerLeak")
+    object: Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            returnTop = false
         }
     }
 
@@ -85,15 +93,19 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
                     this.openFragment(FragmentHome.newInstance(), "home")
                 }
                 R.id.itemMovie -> {
+                    this.goTop()
                     this.openFragment(FragmentMovie.newInstance(), "movie")
                 }
                 R.id.itemTv -> {
+                    this.goTop()
                     this.openFragment(FragmentTv.newInstance(), "tv")
                 }
                 R.id.itemAnime -> {
+                    this.goTop()
                     this.openFragment(FragmentAnime.newInstance(), "anime")
                 }
                 R.id.itemShows -> {
+                    this.goTop()
                     this.openFragment(FragmentShows.newInstance(), "shows")
                 }
             }
@@ -268,6 +280,16 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
             return false
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    private fun goTop() {
+        if (!this.returnTop) {
+            this.returnTop = true
+            this.mHandler.sendEmptyMessageDelayed(0, 1000)
+        } else {
+            val fragment = this@MainActivity.currentFragment as BaseFFragment
+            fragment.goTop()
+        }
     }
 
     // 两次退出则退出
