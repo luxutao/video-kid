@@ -62,6 +62,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
     private lateinit var v_collect_text: TextView
     private lateinit var v_question: ImageView
     private var v_id: Int = 1
+    private var isCollect: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +70,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
         this.v_id = intent.extras.getInt("v_id")
         this.loading = LoadingDialog(this).showLoading()
         this.initUI()
-        this.getDetail(this.v_id)
+        this.getDetail()
         this.setListener()
     }
 
@@ -98,6 +99,31 @@ class PlayerActivity : BaseAAppCompatActivity() {
                     Toast.makeText(this@PlayerActivity, "感谢您的反馈，我们会尽快解决。", Toast.LENGTH_SHORT).show()
                 }
 
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                    Log.e("error", t.message)
+                }
+            })
+        }
+        this.v_collect_image.setOnClickListener {
+            var v_type = ""
+            var message = ""
+            if (this.isCollect) {
+                this.isCollect = false
+                v_type = "false"
+                message = "(⊙o⊙)哦，取消收藏了"
+                this.v_collect_image.setImageDrawable(getDrawable(R.drawable.ic_collect))
+                this.v_collect_text.text = String.format(this.getString(R.string.format_string), this.v_collect_text.text.toString().toInt() - 1)
+            } else {
+                this.isCollect = true
+                v_type = "true"
+                message = "收藏成功咯"
+                this.v_collect_image.setImageDrawable(getDrawable(R.drawable.ic_collect_solid))
+                this.v_collect_text.text = String.format(this.getString(R.string.format_string), this.v_collect_text.text.toString().toInt() + 1)
+            }
+            Requester.VideoService().collectVideo(ToolsHelper.getToken(this), this.v_id, v_type).enqueue(object: Callback<BasicResponse> {
+                override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                    Toast.makeText(this@PlayerActivity, message, Toast.LENGTH_SHORT).show()
+                }
                 override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
                     Log.e("error", t.message)
                 }
@@ -133,8 +159,22 @@ class PlayerActivity : BaseAAppCompatActivity() {
 
     }
 
-    fun getDetail(v_id: Int) {
-        Requester.VideoService().getDetail(vid = v_id).enqueue(object: Callback<DetailBean> {
+    fun getDetail() {
+        Requester.VideoService().isCollect(ToolsHelper.getToken(this), this.v_id).enqueue(object: Callback<BasicResponse> {
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                val res = response.body()!!.data
+                if (res == "True") {
+                    this@PlayerActivity.isCollect = true
+                    this@PlayerActivity.v_collect_image.setImageResource(R.drawable.ic_collect_solid)
+                }
+            }
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                Log.e("failed", t.message)
+                Toast.makeText(this@PlayerActivity, "加载失败,请查看网络情况", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        Requester.VideoService().getDetail(vid = this.v_id).enqueue(object: Callback<DetailBean> {
             override fun onResponse(call: Call<DetailBean>, response: Response<DetailBean>) {
                 val res = response.body()!!.data
                 this@PlayerActivity.v_name.text = res.v_name

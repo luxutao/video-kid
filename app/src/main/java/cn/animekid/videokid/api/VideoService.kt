@@ -138,6 +138,16 @@ interface VideoService {
     @POST("feedbackNotPlay")
     fun feedbackNotPlay(@Query("token") token: String, @Field("v_id") v_id: Int, @Field("v_name") v_name: String): Call<BasicResponse>
 
+    @GET("isCollect")
+    fun isCollect(@Query("token") token: String, @Query("v_id") v_id: Int): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("collectVideo")
+    fun collectVideo(@Query("token") token: String, @Field("v_id") v_id: Int, @Field("v_type") v_type: String): Call<BasicResponse>
+
+    @GET("getCollectList")
+    fun getCollectList(@Query("token") token: String, @Query("size") size: Int = 20, @Query("page") page: Int): Call<ListDataBean>
+
 }
 
 

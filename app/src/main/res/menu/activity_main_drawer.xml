@@ -9,6 +9,11 @@
             android:icon="@drawable/ic_menu_random"
             android:title="随机推荐" />
         <item
+            android:id="@+id/nav_collect"
+            android:icon="@drawable/ic_menu_collect"
+            android:visible="false"
+            android:title="收藏列表" />
+        <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_profile"
             android:visible="false"

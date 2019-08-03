@@ -60,4 +60,6 @@
     <string name="str_forget_password_t">忘记密码?</string>
     <string name="str_miss">想起来了?</string>
     <string name="str_reset_password">重置密码</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="collect_list">收藏列表</string>
 </resources>

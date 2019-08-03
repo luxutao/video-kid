@@ -78,6 +78,9 @@
         <activity android:name=".ui.ProfileActivity"
             android:label="@string/nav_name_profile"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.CollectActivity"
+            android:label="@string/my_collect"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

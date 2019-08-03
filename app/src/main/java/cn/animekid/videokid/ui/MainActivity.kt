@@ -46,6 +46,7 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var UserEmail: TextView
     private lateinit var UserProfile: MenuItem
     private lateinit var UserLogout: MenuItem
+    private lateinit var UserCollect: MenuItem
     private lateinit var BottomMenu: BottomNavigationView
     private var handler: Handler = @SuppressLint("HandlerLeak")
     object: Handler() {
@@ -116,6 +117,7 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
         this.UserEmail = this.navheaderView.findViewById(R.id.user_email)
         this.UserProfile = this.navView.menu.findItem(R.id.nav_profile)
         this.UserLogout = this.navView.menu.findItem(R.id.nav_logout)
+        this.UserCollect = this.navView.menu.findItem(R.id.nav_collect)
         this.BottomMenu = this.findViewById(R.id.bottom_menu)
         this.openFragment(FragmentHome.newInstance(), "home")
     }
@@ -129,6 +131,7 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
             // 获取侧边栏下面的按钮,设置隐藏属性
             this.UserLogout.isVisible = false
             this.UserProfile.isVisible = false
+            this.UserCollect.isVisible = false
             this.islogin = false
         } else {
             if (this.UserInfo.avatar != "F") {
@@ -138,6 +141,7 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
             this.UserName.text = this.UserInfo.name
             this.UserLogout.isVisible = true
             this.UserProfile.isVisible = true
+            this.UserCollect.isVisible = true
             this.islogin = true
         }
     }
@@ -193,6 +197,10 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
         when (item.itemId) {
             R.id.nav_random -> {
                 val intent = Intent(this, RandomActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_collect -> {
+                val intent = Intent(this, CollectActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_profile -> {
