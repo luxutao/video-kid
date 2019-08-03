@@ -65,20 +65,7 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.initUI()
-
-        val packetInfo = this.packageManager.getPackageInfo(this.packageName, 0)
-        Requester.PublicService().checkUpdate(app_version = packetInfo.versionName).enqueue(object: Callback<BasicResponse> {
-            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-                if (response.body()!!.data == "True") {
-                    Toast.makeText(this@MainActivity, "有新版本了哦，请扫描分享二维码进行下载。", Toast.LENGTH_LONG).show()
-
-                }
-            }
-
-            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "连接服务器错误", Toast.LENGTH_SHORT).show()
-            }
-        })
+        this.checkUpdate(this)
 
         this.UserAvatar.setOnClickListener {
             if (!this.islogin) {
@@ -219,8 +206,13 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_share -> {
                 val dialogView = View.inflate(this, R.layout.share_dialog, null)
                 AlertDialog.Builder(this).setTitle("提示").setView(dialogView)
-                        .setPositiveButton("确认") { t_dialog, which -> }
-                        .setNegativeButton("取消", null)
+                        .setPositiveButton("分享他人") { t_dialog, which ->
+                            val intent = Intent(Intent.ACTION_SEND)
+                            intent.setType("text/plain")
+                            intent.putExtra(Intent.EXTRA_TEXT, "Hi 推荐您使用一款软件: " + this.getString(R.string.app_name) + ", 体验地址：https://www.animekid.cn/files/ak-video-latest.apk")
+                            startActivity(Intent.createChooser(intent, "分享"))
+                        }
+                        .setNegativeButton("不让用", null)
                         .create().show()
             }
             R.id.nav_about -> {

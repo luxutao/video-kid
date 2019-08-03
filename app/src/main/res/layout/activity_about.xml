@@ -18,8 +18,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@mipmap/ic_icon"
                 android:layout_marginBottom="5dp"/>
 
