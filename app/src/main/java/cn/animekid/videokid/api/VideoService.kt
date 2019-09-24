@@ -89,6 +89,10 @@ interface AuthService {
     @POST("changeuser")
     fun changeProfile(@Query("token") token: String, @Field("email") email: String, @Field("name") name: String,@Field("sex") sex: String): Call<BasicResponse>
 
+    @FormUrlEncoded
+    @POST("authTokenOverdue")
+    fun authTokenOverdue(@Query("ticket") ticket: String = ToolsHelper.getTicket("authTokenOverdue"), @Field("token") token: String): Call<BasicResponse>
+
     @GET("getUserinfo")
     fun getUserinfo(@Query("token") token: String): Call<UserInfo>
 
