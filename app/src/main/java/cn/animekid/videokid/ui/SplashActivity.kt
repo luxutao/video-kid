@@ -26,6 +26,7 @@ class SplashActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.checkLoginOverdue()
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         supportActionBar?.hide()
         setContentView(R.layout.activity_splash)
