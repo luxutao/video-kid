@@ -13,6 +13,7 @@ import cn.animekid.videokid.R
 import cn.animekid.videokid.api.Requester
 import cn.animekid.videokid.data.BasicResponse
 import cn.animekid.videokid.data.UserInfo
+import cn.animekid.videokid.data.UserInfoData
 import cn.animekid.videokid.utils.ToolsHelper
 import cn.animekid.videokid.utils.database
 import retrofit2.Call
@@ -61,6 +62,7 @@ class LoginActivity: BaseAAppCompatActivity() {
                                 userinfo.put("token", u.data)
                                 userinfo.put("name", userInfoData.data.name)
                                 userinfo.put("create_time", userInfoData.data.create_time)
+                                userinfo.put("modify_time", userInfoData.data.modify_time)
                                 userinfo.put("email", userInfoData.data.email)
                                 userinfo.put("sex", userInfoData.data.sex)
                                 userinfo.put("avatar", userInfoData.data.avatar)

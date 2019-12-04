@@ -24,7 +24,7 @@ import retrofit2.Response
 
 abstract class BaseAAppCompatActivity: AppCompatActivity(),BaseFFragment.FragmentInteraction {
 
-    var UserInfo: UserInfoData = UserInfoData(0,"","","","","","")
+    var UserInfo: UserInfoData = UserInfoData(0,"","","","","","", "")
     lateinit var packetInfo: PackageInfo
 
 
@@ -61,7 +61,7 @@ abstract class BaseAAppCompatActivity: AppCompatActivity(),BaseFFragment.Fragmen
 
     fun getData(){
         val itemdata = this.database.use {
-            select("users","userid","token","name","create_time","email","sex","avatar").exec {
+            select("users","userid","token","name","create_time","modify_time","email","sex","avatar").exec {
                 val itemlist: List<UserInfoData> = parseList(classParser())
                 return@exec itemlist
             }
@@ -78,7 +78,7 @@ abstract class BaseAAppCompatActivity: AppCompatActivity(),BaseFFragment.Fragmen
     }
 
     fun checkUpdate(act: BaseAAppCompatActivity) {
-        Requester.PublicService().checkUpdate(app_version = this.packetInfo.versionName).enqueue(object: Callback<BasicResponse> {
+        Requester.PublicService().checkUpdate(package_name = this.packageName, app_version = this.packetInfo.versionName).enqueue(object: Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if (response.body()!!.data == "True") {
                     val dialog = AlertDialog.Builder(this@BaseAAppCompatActivity)

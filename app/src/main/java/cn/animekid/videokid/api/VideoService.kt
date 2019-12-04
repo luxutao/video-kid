@@ -161,12 +161,16 @@ interface PublicService {
         val baseUrl = "https://api.animekid.cn/api/public/"
     }
 
+    @GET("getAnnouncement")
+    fun getAnnouncement(@Query("ticket") ticket: String = ToolsHelper.getTicket("getAnnouncement"), @Query("package_name") package_name: String): Call<Announcement>
+
+
     @GET("checkUpdate")
-    fun checkUpdate(@Query("ticket") ticket: String = ToolsHelper.getTicket("checkUpdate"), @Query("app_name") app_name: String = "AKVIDEO", @Query("app_version") app_version: String): Call<BasicResponse>
+    fun checkUpdate(@Query("ticket") ticket: String = ToolsHelper.getTicket("checkUpdate"), @Query("package_name") package_name: String, @Query("app_version") app_version: String): Call<BasicResponse>
 
     @FormUrlEncoded
     @POST("feedback")
-    fun feedback(@Query("ticket") ticket: String = ToolsHelper.getTicket("feedback"), @Field("app_name") app_name: String = "AKVIDEO", @Field("email") email: String, @Field("content") content: String): Call<BasicResponse>
+    fun feedback(@Query("ticket") ticket: String = ToolsHelper.getTicket("feedback"), @Field("package_name") package_name: String, @Field("email") email: String, @Field("content") content: String): Call<BasicResponse>
 }
 
 

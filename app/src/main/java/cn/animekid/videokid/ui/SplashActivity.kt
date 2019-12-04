@@ -53,7 +53,7 @@ class SplashActivity: AppCompatActivity() {
 
     fun checkLoginOverdue() {
         val itemdata = this.database.use {
-            select("users","userid","token","name","create_time","email","sex","avatar").exec {
+            select("users","userid","token","name","create_time","modify_time","email","sex","avatar").exec {
                 val itemlist: List<UserInfoData> = parseList(classParser())
                 return@exec itemlist
             }

@@ -34,6 +34,7 @@
                         android:layout_marginStart="1dp" />
 
                     <cn.animekid.videokid.utils.MarqueeText
+                        android:id="@+id/txt"
                         android:text="@string/warning"
                         android:layout_width="400dp"
                         android:layout_height="50dp"

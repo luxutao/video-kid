@@ -17,11 +17,13 @@ import android.widget.Toast
 import cn.animekid.videokid.R
 import cn.animekid.videokid.adapter.ImageAdapter
 import cn.animekid.videokid.api.Requester
+import cn.animekid.videokid.data.Announcement
 import cn.animekid.videokid.data.HomeNewsDataBean
 import cn.animekid.videokid.data.ImageData
 import cn.animekid.videokid.data.ListSpicBean
 import cn.animekid.videokid.ui.PlayerActivity
 import cn.animekid.videokid.utils.AutoHeightGridView
+import cn.animekid.videokid.utils.MarqueeText
 import com.app.abby.xbanner.AbstractUrlLoader
 import com.app.abby.xbanner.XBanner
 import com.bumptech.glide.Glide
@@ -45,6 +47,7 @@ class FragmentHome: Fragment() {
     private lateinit var showsAdapter: ImageAdapter
     private lateinit var swipeLayout: SwipeRefreshLayout
     private lateinit var errorview : LinearLayout
+    private lateinit var AnnouncementTxt: MarqueeText
     lateinit var activityInteraction: BaseFFragment.FragmentInteraction
 
 
@@ -52,6 +55,7 @@ class FragmentHome: Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         this.swipeLayout = view.findViewById(R.id.swiperereshlayout)
+        this.AnnouncementTxt = view.findViewById(R.id.txt)
 
         this.swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light)
@@ -70,6 +74,7 @@ class FragmentHome: Fragment() {
         this.errorview = view.findViewById(R.id.noInternet)
         this.initXBanner(view)
         this.getnewData(view)
+        this.getAnnouncementTxt()
         return view
     }
     
@@ -192,9 +197,24 @@ class FragmentHome: Fragment() {
 
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         xbanner.releaseBanner()
     }
+
+
+    private fun getAnnouncementTxt() {
+        Requester.PublicService().getAnnouncement(package_name=this.context!!.packageName).enqueue(object: Callback<Announcement> {
+            override fun onResponse(call: Call<Announcement>, response: Response<Announcement>) {
+                this@FragmentHome.AnnouncementTxt.text = response.body()!!.data.message
+            }
+
+            override fun onFailure(call: Call<Announcement>, t: Throwable) {
+                Log.d("logoutError",t.message)
+            }
+        })
+    }
+
 
 }
