@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:gravity="center_vertical">
 
-        <cn.animekid.videokid.utils.PrettyImageView
+        <me.m123.video.utils.PrettyImageView
             android:id="@+id/actor_avatar"
             android:layout_width="72dp"
             android:layout_height="72dp"
@@ -33,7 +33,7 @@
             app:shape_type="SHAPE_ROUND"
             app:show_border="false"/>
 
-        <cn.animekid.videokid.utils.MarqueeText
+        <me.m123.video.utils.MarqueeText
             android:id="@+id/actor_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

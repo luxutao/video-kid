@@ -31,7 +31,7 @@
                 android:textColor="#000000"
                 android:textSize="15sp"/>
 
-            <cn.animekid.videokid.utils.PrettyImageView
+            <me.m123.video.utils.PrettyImageView
                 android:id="@+id/user_avatar"
                 android:layout_gravity="center"
                 android:layout_width="40dp"

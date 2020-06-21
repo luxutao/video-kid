@@ -33,7 +33,7 @@
                         android:src="@drawable/ic_sound"
                         android:layout_marginStart="1dp" />
 
-                    <cn.animekid.videokid.utils.MarqueeText
+                    <me.m123.video.utils.MarqueeText
                         android:id="@+id/txt"
                         android:text="@string/warning"
                         android:layout_width="400dp"
@@ -76,7 +76,7 @@
                         android:paddingLeft="10dp"
                         android:textSize="16sp"/>
 
-                    <cn.animekid.videokid.utils.AutoHeightGridView
+                    <me.m123.video.utils.AutoHeightGridView
                         android:id="@+id/newMovieList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                         android:paddingLeft="10dp"
                         android:textSize="16sp"/>
 
-                    <cn.animekid.videokid.utils.AutoHeightGridView
+                    <me.m123.video.utils.AutoHeightGridView
                         android:id="@+id/newTvList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                         android:textStyle="bold"
                         android:textSize="16sp"/>
 
-                    <cn.animekid.videokid.utils.AutoHeightGridView
+                    <me.m123.video.utils.AutoHeightGridView
                         android:id="@+id/newAnimeList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                         android:paddingLeft="10dp"
                         android:textSize="16sp"/>
 
-                    <cn.animekid.videokid.utils.AutoHeightGridView
+                    <me.m123.video.utils.AutoHeightGridView
                         android:id="@+id/newShowsList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

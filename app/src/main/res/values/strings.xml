@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AK视频</string>
+    <string name="app_name">木头人视频</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">未登录</string>
@@ -50,6 +50,7 @@
     <string name="feedback_email_label">邮箱</string>
     <string name="feedback_submit">一键反馈</string>
     <string name="navbar_random">随机推荐</string>
+    <string name="str_username">USERNAME</string>
     <string name="str_email">EMAIL</string>
     <string name="str_captcha">CAPTCHA</string>
     <string name="str_password">PASSWORD</string>

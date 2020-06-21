@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.animekid.videokid">
+    package="me.m123.video">
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -56,9 +56,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.AboutActivity"
             android:label="@string/nav_name_about"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.FeedbackActivity"
-            android:label="@string/feedback_content_label"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.SettingsActivity"
             android:label="@string/nav_name_settings"

@@ -76,7 +76,7 @@
             android:gravity="center_horizontal"
             android:layout_marginBottom="10dp">
 
-            <cn.animekid.videokid.utils.MarqueeText
+            <me.m123.video.utils.MarqueeText
                 android:id="@+id/nameItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

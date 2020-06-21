@@ -140,7 +140,7 @@
                             android:padding="2dp"
                             android:src="@drawable/ic_digg"/>
 
-                        <cn.animekid.videokid.utils.MarqueeText
+                        <me.m123.video.utils.MarqueeText
                             android:id="@+id/v_digg_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
                             android:padding="2dp"
                             android:src="@drawable/ic_tread"/>
 
-                        <cn.animekid.videokid.utils.MarqueeText
+                        <me.m123.video.utils.MarqueeText
                             android:id="@+id/v_tread_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                             android:padding="2dp"
                             android:src="@drawable/ic_collect"/>
 
-                        <cn.animekid.videokid.utils.MarqueeText
+                        <me.m123.video.utils.MarqueeText
                             android:id="@+id/v_collect_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
                             android:padding="2dp"
                             android:src="@drawable/ic_question"/>
 
-                        <cn.animekid.videokid.utils.MarqueeText
+                        <me.m123.video.utils.MarqueeText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
@@ -363,7 +363,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:paddingBottom="10dp">
 
-                    <cn.animekid.videokid.utils.AutoHeightGridView
+                    <me.m123.video.utils.AutoHeightGridView
                         android:id="@+id/player1_palyer_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -372,7 +372,7 @@
                         android:listSelector="@color/colorWrite"
                         android:columnWidth="100dp">
 
-                    </cn.animekid.videokid.utils.AutoHeightGridView>
+                    </me.m123.video.utils.AutoHeightGridView>
 
                 </LinearLayout>
 
@@ -415,7 +415,7 @@
                     android:layout_marginBottom="10dp">
 
 
-                    <cn.animekid.videokid.utils.AutoHeightGridView
+                    <me.m123.video.utils.AutoHeightGridView
                         android:id="@+id/player2_palyer_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -464,7 +464,7 @@
                     android:layout_marginBottom="10dp">
 
 
-                    <cn.animekid.videokid.utils.AutoHeightGridView
+                    <me.m123.video.utils.AutoHeightGridView
                         android:id="@+id/player3_palyer_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
