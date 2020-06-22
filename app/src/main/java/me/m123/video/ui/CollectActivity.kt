@@ -24,7 +24,7 @@ class CollectActivity: BaseAAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.initUI()
-        this.loadingData(1)
+        this.loadingData(0)
     }
 
     override fun getLayoutId(): Int {
@@ -44,10 +44,9 @@ class CollectActivity: BaseAAppCompatActivity() {
 
             override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
                 val length : Int = this@CollectActivity.collectData.size
-                val page : Int = length / 20 + 1
                 if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && length%20 == 0
                         && length-1 == view!!.lastVisiblePosition){
-                    this@CollectActivity.loadingData(page)
+                    this@CollectActivity.loadingData(length + 10)
                 }
             }
         })
@@ -58,8 +57,8 @@ class CollectActivity: BaseAAppCompatActivity() {
         }
     }
 
-    fun loadingData(page: Int) {
-        Requester.CollectService().getCollectList(token = ToolsHelper.getToken(this)).enqueue(object: Callback<VideoListResultDataBean> {
+    fun loadingData(offset: Int) {
+        Requester.CollectService().getCollectList(offset = offset, token = ToolsHelper.getToken(this)).enqueue(object: Callback<VideoListResultDataBean> {
             override fun onResponse(call: Call<VideoListResultDataBean>?, response: Response<VideoListResultDataBean>?) {
                 this@CollectActivity.collectData.addAll(response!!.body()!!.results)
                 this@CollectActivity.collectAdapter.notifyDataSetChanged()

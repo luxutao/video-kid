@@ -62,6 +62,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
     private lateinit var v_collect_text: TextView
     private lateinit var v_question: ImageView
     private var v_id: Int = 1
+    private var collect_id: Int = 0
     private var isCollect: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,29 +106,32 @@ class PlayerActivity : BaseAAppCompatActivity() {
             })
         }
         this.v_collect_image.setOnClickListener {
-            var v_type = ""
-            var message = ""
             if (this.isCollect) {
                 this.isCollect = false
-                v_type = "false"
-                message = "(⊙o⊙)哦，取消收藏了"
                 this.v_collect_image.setImageDrawable(getDrawable(R.drawable.ic_collect))
                 this.v_collect_text.text = String.format(this.getString(R.string.format_string), this.v_collect_text.text.toString().toInt() - 1)
+                Requester.CollectService().deleteCollect(this.collect_id, ToolsHelper.getToken(this)).enqueue(object: Callback<BaseResponse> {
+                    override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                        Toast.makeText(this@PlayerActivity, "(⊙o⊙)哦，取消收藏了", Toast.LENGTH_SHORT).show()
+                    }
+                    override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                        Log.e("error", t.message)
+                    }
+                })
             } else {
                 this.isCollect = true
-                v_type = "true"
-                message = "收藏成功咯"
                 this.v_collect_image.setImageDrawable(getDrawable(R.drawable.ic_collect_solid))
                 this.v_collect_text.text = String.format(this.getString(R.string.format_string), this.v_collect_text.text.toString().toInt() + 1)
+                Requester.CollectService().collectVideo(this.UserInfo.id, this.v_id, ToolsHelper.getToken(this)).enqueue(object: Callback<BaseResponse> {
+                    override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                        Toast.makeText(this@PlayerActivity, "收藏成功咯", Toast.LENGTH_SHORT).show()
+                    }
+                    override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                        Log.e("error", t.message)
+                    }
+                })
             }
-            Requester.CollectService().collectVideo(this.UserInfo.id, this.v_id, ToolsHelper.getToken(this)).enqueue(object: Callback<BaseResponse> {
-                override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
-                    Toast.makeText(this@PlayerActivity, message, Toast.LENGTH_SHORT).show()
-                }
-                override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
-                    Log.e("error", t.message)
-                }
-            })
+
         }
     }
     
@@ -165,7 +169,10 @@ class PlayerActivity : BaseAAppCompatActivity() {
             override fun onResponse(call: Call<DetailDataBean>, response: Response<DetailDataBean>) {
                 val res = response.body()!!
                 this@PlayerActivity.isCollect = res.is_collect.toBoolean()
-                this@PlayerActivity.v_collect_image.setImageResource(R.drawable.ic_collect_solid)
+                this@PlayerActivity.collect_id = res.collect_id
+                if (this@PlayerActivity.isCollect) {
+                    this@PlayerActivity.v_collect_image.setImageResource(R.drawable.ic_collect_solid)
+                }
                 this@PlayerActivity.v_name.text = res.v_name
                 this@PlayerActivity.v_year.text = res.v_publishyear.toString()
                 this@PlayerActivity.v_area.text = res.v_publisharea
@@ -173,10 +180,10 @@ class PlayerActivity : BaseAAppCompatActivity() {
                 this@PlayerActivity.v_hit.text = String.format(this@PlayerActivity.getString(R.string.player_hit), res.v_hit)
                 this@PlayerActivity.v_digg_text.text = String.format(this@PlayerActivity.getString(R.string.format_string), res.v_digg)
                 this@PlayerActivity.v_tread_text.text = String.format(this@PlayerActivity.getString(R.string.format_string), res.v_tread)
-                this@PlayerActivity.v_collect_text.text = String.format(this@PlayerActivity.getString(R.string.format_string), 10)
+                this@PlayerActivity.v_collect_text.text = String.format(this@PlayerActivity.getString(R.string.format_string), res.collect)
                 this@PlayerActivity.v_score.text = res.score
                 this@PlayerActivity.v_desc.text = res.v_content
-                this@PlayerActivity.v_score_star.rating = (res.score.toFloat() * 0.5).toFloat()
+                this@PlayerActivity.v_score_star.rating = res.v_score.toFloat()
                 this@PlayerActivity.player1list.addAll(res.v_playdata[0].playdata)
                 this@PlayerActivity.player2list.addAll(res.v_playdata[1].playdata)
                 this@PlayerActivity.player3list.addAll(res.v_playdata[2].playdata)

@@ -27,7 +27,7 @@ class SearchResultActivity: BaseAAppCompatActivity() {
         super.onCreate(savedInstanceState)
         this.s = intent.extras.get(SearchManager.QUERY).toString()
         this.initUI()
-        this.getSearchResult(1)
+        this.getSearchResult(0)
 
     }
 
@@ -40,10 +40,9 @@ class SearchResultActivity: BaseAAppCompatActivity() {
 
             override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
                 val length : Int = this@SearchResultActivity.searchDataList.size
-                val page : Int = length / 10 + 1
                 if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && length%10 == 0
                         && length-1 == view!!.lastVisiblePosition){
-                    this@SearchResultActivity.getSearchResult(page)
+                    this@SearchResultActivity.getSearchResult(length + 10)
                 }
             }
         })
@@ -54,8 +53,8 @@ class SearchResultActivity: BaseAAppCompatActivity() {
         }
     }
 
-    fun getSearchResult(page: Int) {
-        Requester.VideoService().search(this.s, ToolsHelper.getToken(this)).enqueue(object : Callback<VideoListResultDataBean> {
+    fun getSearchResult(offset: Int) {
+        Requester.VideoService().search(search = this.s, offset = offset, token = ToolsHelper.getToken(this)).enqueue(object : Callback<VideoListResultDataBean> {
             override fun onResponse(call: Call<VideoListResultDataBean>, response: Response<VideoListResultDataBean>) {
                 val res = response.body()!!.results
                 this@SearchResultActivity.searchDataList.addAll(res)

@@ -109,39 +109,40 @@ interface VideoService {
 
     companion object {
         //此类接口的基地址
-        val baseUrl = "https://api.123m.me/api/video/"
+        val baseUrl = "https://api.123m.me/api/"
     }
 
-    @GET
+    @GET("video/")
     fun getSpic(@Query("spic") spic: String = "true", @Header("Authorization") token: String): Call<SpicDataBean>
 
-    @GET
+    @GET("video/")
     fun getNew(@Query("new") new: String, @Header("Authorization") token: String): Call<VideoListResultDataBean>
 
-    @GET
+    @GET("video/")
     fun getHotVideo(@Query("hot") ticket: String = "true", @Header("Authorization") token: String): Call<HotSearchDataBean>
 
-    @GET("{videoid}/")
+    @GET("video/{videoid}/")
     fun getDetail(@Path("videoid") videoid: Int, @Header("Authorization") token: String): Call<DetailDataBean>
 
-    @GET
-    fun search(@Query("search") search: String, @Header("Authorization") token: String): Call<VideoListResultDataBean>
+    @GET("video/")
+    fun search(@Query("search") search: String, @Query("offset") offset: Int, @Query("limit") limit: Int = 10, @Header("Authorization") token: String): Call<VideoListResultDataBean>
 
-    @GET
+    @GET("video/")
     fun getVideo(
             @Query("tid") tid: String, @Query("area") area: String, @Query("lang") lang: String,
-            @Query("year") year: String, @Header("Authorization") token: String
+            @Query("year") year: String, @Header("Authorization") token: String,
+            @Query("offset") offset: Int, @Query("limit") limit: Int
     ): Call<VideoListResultDataBean>
 
-    @GET
+    @GET("video/")
     fun getRandomVideo(
             @Query("random") random: String = "true", @Header("Authorization") token: String
     ): Call<VideoListResultDataBean>
 
-    @PUT("{videoid}/")
+    @PUT("video/{videoid}/")
     fun diggTread(@Path("videoid") videoid: Int, @Body requestBody: RequestBody, @Header("Authorization") token: String): Call<BaseResponse>
 
-    @GET("{videoid}/feedback/")
+    @GET("video/{videoid}/feedback/")
     fun feedbackNotPlay(@Path("videoid") videoid: Int,@Header("Authorization") token: String): Call<BaseResponse>
 
 }
@@ -151,15 +152,18 @@ interface CollectService {
 
     companion object {
         //此类接口的基地址
-        val baseUrl = "https://api.123m.me/api/collect/"
+        val baseUrl = "https://api.123m.me/api/"
     }
 
     @FormUrlEncoded
-    @POST("collectVideo")
-    fun collectVideo(@Field("user_id") user_id: Int, @Field("v_id") v_id: Int, @Header("Authorization") token: String): Call<BaseResponse>
+    @POST("collect/")
+    fun collectVideo(@Field("user_id") user_id: Int, @Field("video_id") video_id: Int, @Header("Authorization") token: String): Call<BaseResponse>
 
-    @GET
-    fun getCollectList(@Header("Authorization") token: String): Call<VideoListResultDataBean>
+    @GET("collect/")
+    fun getCollectList(@Query("offset") offset: Int, @Query("limit") limit: Int = 10, @Header("Authorization") token: String): Call<VideoListResultDataBean>
+
+    @DELETE("collect/{video_id}/")
+    fun deleteCollect(@Path("video_id") Video_id: Int, @Header("Authorization") token: String): Call<BaseResponse>
 
 }
 

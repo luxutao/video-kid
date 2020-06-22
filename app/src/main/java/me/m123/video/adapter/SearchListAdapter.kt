@@ -42,9 +42,13 @@ class SearchListAdapter(private val _context: Context, private val _list: ArrayL
             v = convertView
             holder = v.tag as ImageViewHolder
         }
+        var v_pic = _list[position].v_pic
+        if ("http" !in v_pic) {
+            v_pic = "https://v.123m.me/" + v_pic
+        }
 
         Glide.with(v)
-                .load(_list[position].v_pic)
+                .load(v_pic)
                 .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                 .apply(RequestOptions().placeholder(R.drawable.video_item_loading_placeholder))
                 .apply(RequestOptions().error(R.drawable.video_item_loading_error))

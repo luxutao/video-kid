@@ -232,7 +232,9 @@ class MainActivity : BaseAAppCompatActivity(), NavigationView.OnNavigationItemSe
                             Log.d("logoutSuccess","success")
                             this@MainActivity.defaultData(true)
                             Toast.makeText(this@MainActivity, "注销账号成功", Toast.LENGTH_SHORT).show()
-
+                            this@MainActivity.finish()
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
                         }
                         .setNegativeButton("取消", null)
                         .create().show()

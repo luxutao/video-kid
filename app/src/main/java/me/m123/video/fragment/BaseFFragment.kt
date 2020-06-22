@@ -53,7 +53,7 @@ open class BaseFFragment : Fragment() {
     var tid: String = ""
 
     init {
-        this.params.put("type", "")
+        this.params.put("tid", "")
         this.params.put("area", "")
         this.params.put("lang", "")
         this.params.put("year", "")
@@ -75,7 +75,7 @@ open class BaseFFragment : Fragment() {
         this.makeRadio(this.video_years, this.videoYearsGroup)
         this.videoFilter = view.findViewById(R.id.video_filter)
 
-        this.videoTypesGroup.setOnCheckedChangeListener(this.radioListener(view, "type", true))
+        this.videoTypesGroup.setOnCheckedChangeListener(this.radioListener(view, "tid", true))
         this.videoAreasGroup.setOnCheckedChangeListener(this.radioListener(view, "area", false))
         this.videoLangsGroup.setOnCheckedChangeListener(this.radioListener(view, "lang", false))
         this.videoYearsGroup.setOnCheckedChangeListener(this.radioListener(view, "year", false))
@@ -92,7 +92,7 @@ open class BaseFFragment : Fragment() {
                 val length : Int = this@BaseFFragment.videoImageList.size
                 if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && length%10 == 0
                         && length-1 == view!!.lastVisiblePosition){
-                    this@BaseFFragment.loadingMore(length)
+                    this@BaseFFragment.loadingMore(length + 10)
                 }
             }
         })
@@ -107,9 +107,16 @@ open class BaseFFragment : Fragment() {
         this.videoList.smoothScrollToPositionFromTop(0, 0)
     }
 
-    fun loadingMore(offset: Int = 10, reload: Boolean = false) {
+    fun loadingMore(offset: Int = 0, reload: Boolean = false, limit: Int = 10) {
+        var current_tid = this.params["tid"].toString()
+        if (current_tid.isEmpty()) {
+            current_tid = this.tid
+        }
         Requester.VideoService().getVideo(area = this.params["area"].toString(),
-                lang = this.params["lang"].toString(), year = this.params["year"].toString(),tid = this.tid, token = ToolsHelper.getToken(this.context!!)).enqueue(object: Callback<VideoListResultDataBean> {
+                lang = this.params["lang"].toString(), year = this.params["year"].toString(),
+                tid = current_tid, token = ToolsHelper.getToken(this.context!!),
+                offset = offset, limit = limit
+        ).enqueue(object: Callback<VideoListResultDataBean> {
             override fun onResponse(call: Call<VideoListResultDataBean>?, response: Response<VideoListResultDataBean>?) {
                 this@BaseFFragment.videoList.visibility = View.VISIBLE
                 Log.e("tag", response!!.body()!!.results.toString())

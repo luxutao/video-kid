@@ -42,17 +42,20 @@ class ImageAdapter(private val _context: Context, private val _list: ArrayList<V
             v = convertView
             holder = v.tag as ImageViewHolder
         }
-
+        var v_pic = _list[position].v_pic
+        if ("http" !in v_pic) {
+            v_pic = "https://v.123m.me/" + v_pic
+        }
         Glide.with(v)
-                .load(_list[position].v_pic)
+                .load(v_pic)
                 .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                 .apply(RequestOptions().placeholder(R.drawable.video_item_loading_placeholder_layer))
                 .apply(RequestOptions().error(R.drawable.video_item_loading_error))
                 .apply(RequestOptions().centerCrop())
                 .apply(RequestOptions().dontAnimate())
                 .into(holder.image)
-        Log.e("tag",_list[position].v_pic)
-        holder.score.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_score))
+        Log.e("tag",v_pic)
+        holder.score.setText(String.format(_context.getString(R.string.format_string),  _list[position].score))
         holder.name.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_name))
         holder.note.setText(String.format(_context.getString(R.string.format_string),  _list[position].v_note))
         return v

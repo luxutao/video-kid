@@ -42,13 +42,9 @@
     <string name="nav_name_profile">个人资料</string>
     <string name="about_help">帮助中心&#038;问题反馈</string>
     <string name="about_check_update">检查更新</string>
-    <string name="about_version">当前版本</string>
+    <string name="about_version">当前软件版本</string>
+    <string name="about_send_mail">发送邮件</string>
     <string name="about_license">《 Apache License 》</string>
-    <string name="feedback_content_label">问题反馈</string>
-    <string name="feedback_content">可以在此或访问https://github.com/luxutao/animes-wallpaper提交issue</string>
-    <string name="feedback_email">Email</string>
-    <string name="feedback_email_label">邮箱</string>
-    <string name="feedback_submit">一键反馈</string>
     <string name="navbar_random">随机推荐</string>
     <string name="str_username">USERNAME</string>
     <string name="str_email">EMAIL</string>

@@ -17,7 +17,7 @@ class FragmentAnime: BaseFFragment() {
         )
         this.tid = "1004"
         this.initUI(view)
-        this.loadingMore(1)
+        this.loadingMore(limit = 20)
         return view
     }
 

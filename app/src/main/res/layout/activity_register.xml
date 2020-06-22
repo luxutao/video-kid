@@ -139,8 +139,8 @@
                             android:id="@+id/captcha"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="5"
-                            android:minEms="5"
+                            android:maxLength="6"
+                            android:minEms="6"
                             android:inputType="text"/>
 
                         <ImageButton

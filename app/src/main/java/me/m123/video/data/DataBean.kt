@@ -52,6 +52,8 @@ data class DetailDataBean(
         val score: String,
         val v_hit: Int,
         val is_collect: String,
+        val collect: Int,
+        val collect_id: Int,
         val v_actors: String
 ) {
     data class Tid(

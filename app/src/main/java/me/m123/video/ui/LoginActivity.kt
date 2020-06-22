@@ -20,7 +20,7 @@ import retrofit2.Response
 
 class LoginActivity: BaseAAppCompatActivity() {
 
-    private lateinit var email: EditText
+    private lateinit var username: EditText
     private lateinit var password: EditText
     private lateinit var forgotPassword: TextView
     private lateinit var register: TextView
@@ -36,17 +36,13 @@ class LoginActivity: BaseAAppCompatActivity() {
         }
 
         this.login.setOnClickListener {
-            val user_email = this.email.text.toString()
+            val username = this.username.text.toString()
             val user_password = this.password.text.toString()
-            if (TextUtils.isEmpty(user_email) || TextUtils.isEmpty(user_password)) {
-                Toast.makeText(this, "邮箱或密码不能为空!", Toast.LENGTH_SHORT).show()
+            if (TextUtils.isEmpty(username) || TextUtils.isEmpty(user_password)) {
+                Toast.makeText(this, "用户名或密码不能为空!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (ToolsHelper.isEmailValid(user_email) != true) {
-                Toast.makeText(this, "请输入一个正确的邮箱!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            Requester.AuthService().authLogin(username = user_email, password = user_password).enqueue(object: Callback<LoginResponse> {
+            Requester.AuthService().authLogin(username = username, password = user_password).enqueue(object: Callback<LoginResponse> {
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                     Log.d("userinfo", response.body()!!.toString())
                     val u = response.body()!!
@@ -81,7 +77,7 @@ class LoginActivity: BaseAAppCompatActivity() {
                         })
 
                     } else {
-                        Toast.makeText(this@LoginActivity, "该账号不存在！", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginActivity, "登录错误,请检查账号密码是否正确！", Toast.LENGTH_SHORT).show()
                     }
 
 
@@ -103,7 +99,7 @@ class LoginActivity: BaseAAppCompatActivity() {
 
     fun initUI(){
         this.register = this.findViewById(R.id.register)
-        this.email = this.findViewById(R.id.email)
+        this.username = this.findViewById(R.id.username)
         this.password = this.findViewById(R.id.password)
         this.forgotPassword = this.findViewById(R.id.forgot_password)
         this.login = this.findViewById(R.id.login)

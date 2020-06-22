@@ -9,6 +9,7 @@ import me.m123.video.R
 import me.m123.video.api.Requester
 import me.m123.video.data.BaseResponse
 import me.m123.video.utils.ToolsHelper
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,6 +20,7 @@ class RegisterActivity: BaseAAppCompatActivity() {
     private var _Captcha: String = ""
     private lateinit var sendCaptcha: ImageButton
     private lateinit var register: Button
+    private lateinit var username: EditText
     private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var captcha: EditText
@@ -56,7 +58,8 @@ class RegisterActivity: BaseAAppCompatActivity() {
             val user_email = this.email.text.toString()
             val user_captcha = this.captcha.text.toString()
             val user_password = this.password.text.toString()
-            if (TextUtils.isEmpty(user_email) || TextUtils.isEmpty(user_password) || TextUtils.isEmpty(user_captcha)) {
+            if (TextUtils.isEmpty(user_email) || TextUtils.isEmpty(user_password) ||
+                    TextUtils.isEmpty(user_captcha) || TextUtils.isEmpty(username)) {
                 Toast.makeText(this, "不能为空!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -96,6 +99,7 @@ class RegisterActivity: BaseAAppCompatActivity() {
     fun initUI(){
         this.sendCaptcha = this.findViewById(R.id.send_captcha)
         this.register = this.findViewById(R.id.register)
+        this.username = this.findViewById(R.id.username)
         this.email = this.findViewById(R.id.email)
         this.captcha = this.findViewById(R.id.captcha)
         this.password = this.findViewById(R.id.password)

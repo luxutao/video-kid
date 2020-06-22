@@ -18,7 +18,7 @@ class FragmentTv: BaseFFragment() {
         )
         this.tid = "1002"
         this.initUI(view)
-        this.loadingMore(20)
+        this.loadingMore(limit = 20)
         return view
     }
 

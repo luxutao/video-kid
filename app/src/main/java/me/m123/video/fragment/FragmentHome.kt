@@ -160,7 +160,7 @@ class FragmentHome: Fragment() {
                 Toast.makeText(view!!.context, "加载失败,请查看网络情况", Toast.LENGTH_SHORT).show()
             }
         })
-        Requester.VideoService().getNew(new = "movie", token = ToolsHelper.getToken(this.context!!)).enqueue(object: Callback<VideoListResultDataBean> {
+        Requester.VideoService().getNew(new = "tv", token = ToolsHelper.getToken(this.context!!)).enqueue(object: Callback<VideoListResultDataBean> {
             override fun onResponse(call: Call<VideoListResultDataBean>, response: Response<VideoListResultDataBean>) {
                 val data = response.body()!!.results
                 tvList.adapter = this@FragmentHome.tvAdapter
@@ -173,7 +173,7 @@ class FragmentHome: Fragment() {
                 Toast.makeText(view!!.context, "加载失败,请查看网络情况", Toast.LENGTH_SHORT).show()
             }
         })
-        Requester.VideoService().getNew(new = "movie", token = ToolsHelper.getToken(this.context!!)).enqueue(object: Callback<VideoListResultDataBean> {
+        Requester.VideoService().getNew(new = "anime", token = ToolsHelper.getToken(this.context!!)).enqueue(object: Callback<VideoListResultDataBean> {
             override fun onResponse(call: Call<VideoListResultDataBean>, response: Response<VideoListResultDataBean>) {
                 val data = response.body()!!.results
                 animeList.adapter = this@FragmentHome.animeAdapter
@@ -186,7 +186,7 @@ class FragmentHome: Fragment() {
                 Toast.makeText(view!!.context, "加载失败,请查看网络情况", Toast.LENGTH_SHORT).show()
             }
         })
-        Requester.VideoService().getNew(new = "movie", token = ToolsHelper.getToken(this.context!!)).enqueue(object: Callback<VideoListResultDataBean> {
+        Requester.VideoService().getNew(new = "shows", token = ToolsHelper.getToken(this.context!!)).enqueue(object: Callback<VideoListResultDataBean> {
             override fun onResponse(call: Call<VideoListResultDataBean>, response: Response<VideoListResultDataBean>) {
                 val data = response.body()!!.results
                 showsList.adapter = this@FragmentHome.showsAdapter

@@ -45,12 +45,13 @@ class ProfileActivity: BaseAAppCompatActivity() {
             val dialog = AlertDialog.Builder(this)
             var json = JSONObject()
             dialog.setTitle("提示").setSingleChoiceItems(sex_array,sex_array.asList().indexOf(this.UserInfo.gender)) { t_dialog, which ->
+                Log.d("gender", which.toString())
                 json.put("gender", sex_array[which])
                 Requester.UserService().updateUserInfo(this.UserInfo.id, RequestBody.create(this.JSON, json.toString()), token = ToolsHelper.getToken(this@ProfileActivity)).enqueue(object: Callback<BaseResponse> {
                     override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
                         this@ProfileActivity.userSex.text = sex_array[which]
                         this@ProfileActivity.UserInfo.gender = sex_array[which]
-                        this@ProfileActivity.updateData("sex", sex_array[which], this@ProfileActivity.UserInfo.id)
+                        this@ProfileActivity.updateData("gender", sex_array[which], this@ProfileActivity.UserInfo.id)
                         t_dialog.dismiss()
                     }
 
@@ -77,7 +78,7 @@ class ProfileActivity: BaseAAppCompatActivity() {
                     override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
                         this@ProfileActivity.userName.text = newName
                         this@ProfileActivity.UserInfo.last_name = newName
-                        this@ProfileActivity.updateData("name", newName, this@ProfileActivity.UserInfo.id)
+                        this@ProfileActivity.updateData("last_name", newName, this@ProfileActivity.UserInfo.id)
                     }
 
                     override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
@@ -96,9 +97,7 @@ class ProfileActivity: BaseAAppCompatActivity() {
         if (this.UserInfo.id != 0) {
             this.userName.text = this.UserInfo.last_name
             this.userSex.text = this.UserInfo.gender
-            if (this.UserInfo.avatar != "F") {
-                Glide.with(this).load(this.UserInfo.avatar).into(this.userAvatar)
-            }
+            Glide.with(this).load(this.UserInfo.avatar).into(this.userAvatar)
         }
     }
 
