@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import cn.jzvd.JZDataSource
 import me.m123.video.R
 import me.m123.video.adapter.PlayerListAdapter
 import me.m123.video.api.Requester
@@ -274,10 +275,11 @@ class PlayerActivity : BaseAAppCompatActivity() {
         val onItem = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val index = parent.getItemIdAtPosition(position)
             val bean = playerlist.get(index.toInt())
-            if (this.videoView.state == Jzvd.STATE_ERROR || this.videoView.state == Jzvd.STATE_NORMAL) {
-                this.videoView.setUp(bean.url, bean.gather)
+            if (this.videoView.state == Jzvd.STATE_PAUSE || this.videoView.state == Jzvd.STATE_PLAYING ||
+                    this.videoView.state == Jzvd.STATE_AUTO_COMPLETE) {
+                this.videoView.changeUrl(JZDataSource(bean.url, bean.gather), 0)
             } else {
-                this.videoView.changeUrl(bean.url, bean.gather,0)
+                this.videoView.setUp(bean.url, bean.gather)
             }
             this.videoView.startVideo()
         }
@@ -309,7 +311,7 @@ class PlayerActivity : BaseAAppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        Jzvd.resetAllVideos()
+        Jzvd.releaseAllVideos()
     }
 
 }
